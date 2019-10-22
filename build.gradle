@@ -24,22 +24,15 @@ targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
-java {
-    registerFeature("postgresqlSupport") {
-        usingSourceSet(sourceSets.main)
-    }
-}
-
 repositories {
     jcenter()
 }
 
 dependencies {
-    postgresqlSupportImplementation 'org.postgresql:postgresql:42.2.8'
+    implementation 'de.muspellheim:muspellheim-commons:1.0.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-    testRuntimeOnly 'org.postgresql:postgresql:42.2.8'
 }
 
 jar {
