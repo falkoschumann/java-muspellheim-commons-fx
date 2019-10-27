@@ -10,6 +10,9 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 
+/**
+ * View controller for about information.
+ */
 public class AboutViewController {
 
     @FXML
@@ -27,10 +30,20 @@ public class AboutViewController {
     @FXML
     private Label rights;
 
+    /**
+     * Set the app icon, should be 64x64 pixel.
+     *
+     * @param value the app icon
+     */
     public void setAppIcon(Image value) {
         appIcon.setImage(value);
     }
 
+    /**
+     * Set the about information.
+     *
+     * @param value the about information
+     */
     public void setAbout(About value) {
         title.setText(value.getTitle());
         version.setText(value.getVersionText());
