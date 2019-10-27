@@ -126,7 +126,7 @@ public class StageController<V extends Parent, C> {
         }
 
         loaded = true;
-        ControllerFactory<C, V> factory = ControllerFactory.load(controllerType);
+        ViewControllerFactory<C, V> factory = ViewControllerFactory.load(controllerType);
         Scene scene = new Scene(factory.getView());
         stage.setScene(scene);
         init(factory.getView(), factory.getController());

@@ -21,7 +21,7 @@ import lombok.*;
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ControllerFactory<C, V extends Node> {
+public class ViewControllerFactory<C, V extends Node> {
 
     /**
      * The view controller.
@@ -49,14 +49,14 @@ public class ControllerFactory<C, V extends Node> {
      * @return the factory for loaded controller and view
      */
     @SuppressWarnings("unchecked")
-    public static <C, V extends Node> ControllerFactory<C, V> load(@NonNull Class<C> controllerType) {
+    public static <C, V extends Node> ViewControllerFactory<C, V> load(@NonNull Class<C> controllerType) {
         try {
             String viewName = controllerType.getSimpleName().replace("Controller", "") + ".fxml";
             URL url = controllerType.getResource(viewName);
             FXMLLoader loader = new FXMLLoader(url);
             Node view = loader.load();
             Object controller = loader.getController();
-            return (ControllerFactory<C, V>) new ControllerFactory(controller, view);
+            return (ViewControllerFactory<C, V>) new ViewControllerFactory(controller, view);
         } catch (IOException e) {
             throw new IllegalArgumentException("Can not load view", e);
         }
