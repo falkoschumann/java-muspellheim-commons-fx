@@ -1,6 +1,9 @@
 language: java
 dist: trusty
 
+before_script:
+  - sudo apt-get install openjfx
+
 jdk:
   - oraclejdk8
   - openjdk8
