@@ -11,10 +11,20 @@ import java.util.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+/**
+ * Show a dialog for an exception.
+ * <p>
+ * The exception message is displayed and the stacktrace can be displayed in detail area of the dialog.
+ */
 public class ExceptionDialog extends Alert {
 
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle(ExceptionDialog.class.getName());
 
+    /**
+     * Create a dialog with specified exception.
+     *
+     * @param exception the exception to display.
+     */
     public ExceptionDialog(Throwable exception) {
         super(AlertType.ERROR);
 
