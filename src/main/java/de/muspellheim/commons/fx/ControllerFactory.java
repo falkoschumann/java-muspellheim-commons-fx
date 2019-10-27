@@ -40,7 +40,7 @@ public class ControllerFactory<C, V extends Node> {
     /**
      * Load a controller by class and return the factory for this controller.
      * <p>
-     * Load controller and view with {@ink FXMLLoader}.
+     * Load controller and view with {@link FXMLLoader}.
      *
      * @param controllerType the class of controller to load
      * @param <C>            the type of loaded controller
