@@ -1,4 +1,4 @@
-[![Bintray](https://img.shields.io/bintray/v/falkoschumann/maven/muspellheim-commons-fx)](https://bintray.com/falkoschumann/maven/muspellheim-commons-fx)
+[![Download](https://api.bintray.com/packages/falkoschumann/maven/muspellheim-commons-fx/images/download.svg)](https://bintray.com/falkoschumann/maven/muspellheim-commons-fx)
 [![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons-fx.png?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons-fx)
 
 # Muspellheim Commons FX
