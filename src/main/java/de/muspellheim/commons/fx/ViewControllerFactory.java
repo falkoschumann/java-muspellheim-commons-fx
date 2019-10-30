@@ -15,13 +15,13 @@ import lombok.*;
 /**
  * Factory for view controller.
  *
- * @param <C> the type of the controller
  * @param <V> the type of the root view
+ * @param <C> the type of the controller
  */
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("checkstyle:VisibilityModifier")
-public class ViewControllerFactory<C, V extends Node> {
+public class ViewControllerFactory<V extends Node, C> {
 
     /**
      * The view controller.
@@ -44,19 +44,19 @@ public class ViewControllerFactory<C, V extends Node> {
      * is removed.
      *
      * @param controllerType the class of controller to load
-     * @param <C>            the type of loaded controller
      * @param <V>            the type of loaded view
+     * @param <C>            the type of loaded controller
      * @return the factory for loaded controller and view
      */
     @SuppressWarnings("unchecked")
-    public static <C, V extends Node> ViewControllerFactory<C, V> load(@NonNull Class<C> controllerType) {
+    public static <V extends Node, C> ViewControllerFactory<V, C> load(@NonNull Class<C> controllerType) {
         try {
             String viewName = controllerType.getSimpleName().replace("Controller", "") + ".fxml";
             URL url = controllerType.getResource(viewName);
             FXMLLoader loader = new FXMLLoader(url);
             Node view = loader.load();
             Object controller = loader.getController();
-            return (ViewControllerFactory<C, V>) new ViewControllerFactory(controller, view);
+            return (ViewControllerFactory<V, C>) new ViewControllerFactory(controller, view);
         } catch (IOException e) {
             throw new IllegalArgumentException("Can not load view", e);
         }
