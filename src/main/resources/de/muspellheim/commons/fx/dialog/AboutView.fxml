@@ -11,7 +11,7 @@
   ~ Copyright (c) 2019 BitCtrl Systems GmbH
   -->
 
-<VBox alignment="CENTER" spacing="6.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.AboutViewController">
+<VBox alignment="CENTER" spacing="6.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.dialog.AboutViewController">
     <children>
         <ImageView fx:id="appIcon" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
         <Label fx:id="title" text="My App">

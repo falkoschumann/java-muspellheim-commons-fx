@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons.fx;
+package de.muspellheim.commons.fx.dialog;
 
 import de.muspellheim.commons.util.*;
 import javafx.fxml.*;

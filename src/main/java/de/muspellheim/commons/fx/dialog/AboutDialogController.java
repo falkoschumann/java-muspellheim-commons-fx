@@ -3,8 +3,9 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons.fx;
+package de.muspellheim.commons.fx.dialog;
 
+import de.muspellheim.commons.fx.*;
 import de.muspellheim.commons.util.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
