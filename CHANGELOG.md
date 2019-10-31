@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Added sub packages and moved some classes to new packages.
 *   Compensated different generic types order of `StageController` and
     `ViewControllerFactory`.
+*   Replaced about dialog.
 
 ## [v1.0.0] - 2019-10-27
 

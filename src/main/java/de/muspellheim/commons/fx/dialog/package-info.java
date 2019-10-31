@@ -4,6 +4,6 @@
  */
 
 /**
- * Contains general GUI dialogs.
+ * Contains general GUI dialogs like about and exception.
  */
 package de.muspellheim.commons.fx.dialog;
