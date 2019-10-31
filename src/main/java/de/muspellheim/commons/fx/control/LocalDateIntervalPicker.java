@@ -14,6 +14,9 @@ import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+/**
+ * Picker for {@link LocalDateInterval}.
+ */
 public class LocalDateIntervalPicker extends HBox {
 
     private final ResourceBundle bundle = ResourceBundle.getBundle(getClass().getName());
@@ -22,10 +25,18 @@ public class LocalDateIntervalPicker extends HBox {
     private final DatePicker start;
     private final DatePicker end;
 
+    /**
+     * Create a picker without an interval.
+     */
     public LocalDateIntervalPicker() {
         this(null);
     }
 
+    /**
+     * Create a picker with given interval.
+     *
+     * @param interval an interval
+     */
     public LocalDateIntervalPicker(LocalDateInterval interval) {
         // build
         setSpacing(7);
@@ -54,14 +65,29 @@ public class LocalDateIntervalPicker extends HBox {
         setValue(interval);
     }
 
+    /**
+     * The current set interval.
+     *
+     * @return the interval
+     */
     public ObjectProperty<LocalDateInterval> valueProperty() {
         return value;
     }
 
+    /**
+     * Get current interval.
+     *
+     * @return the interval
+     */
     public LocalDateInterval getValue() {
         return value.get();
     }
 
+    /**
+     * Set current  interval.
+     *
+     * @param value an interval
+     */
     public void setValue(LocalDateInterval value) {
         this.value.set(value);
     }

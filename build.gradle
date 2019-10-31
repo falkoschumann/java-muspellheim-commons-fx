@@ -33,7 +33,7 @@ if (!System.getProperty("java.version").startsWith("1.8")) {
     }
 }
 
-version = '1.0.0'
+version = '2.0.0'
 
 // ###################################################################
 // Java Library
@@ -80,7 +80,8 @@ test {
 
 javadoc {
     title = "Muspellheim Commons FX v${project.version}"
-    /*options.links += 'https://docs.oracle.com/javase/8/docs/api/'*/
+    options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+    options.links += 'https://falkoschumann.github.io/java-muspellheim-commons/'
     options.overview = file('src/main/javadoc/overview.html')
     options.noTimestamp = true
     destinationDir = file('docs')
