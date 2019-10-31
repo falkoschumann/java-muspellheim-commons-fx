@@ -4,6 +4,6 @@
  */
 
 /**
- * Contains general GUI dialogs and helper classes.
+ * Contains helper for creating controller classes.
  */
 package de.muspellheim.commons.fx;

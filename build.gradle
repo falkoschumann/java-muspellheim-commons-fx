@@ -29,11 +29,11 @@ if (!System.getProperty("java.version").startsWith("1.8")) {
 
     javafx {
         version = "11"
-        modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+        modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing']
     }
 }
 
-version = '1.0.0'
+version = '2.0.0'
 
 // ###################################################################
 // Java Library
@@ -48,11 +48,18 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    implementation 'de.muspellheim:muspellheim-commons:1.2.0'
+java {
+    registerFeature("junitSupport") {
+        usingSourceSet(sourceSets.main)
+    }
+}
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+dependencies {
+    junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+
+    implementation 'de.muspellheim:muspellheim-commons:1.4.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }
 
 jar {
@@ -73,7 +80,8 @@ test {
 
 javadoc {
     title = "Muspellheim Commons FX v${project.version}"
-    /*options.links += 'https://docs.oracle.com/javase/8/docs/api/'*/
+    options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+    options.links += 'https://falkoschumann.github.io/java-muspellheim-commons/'
     options.overview = file('src/main/javadoc/overview.html')
     options.noTimestamp = true
     destinationDir = file('docs')
