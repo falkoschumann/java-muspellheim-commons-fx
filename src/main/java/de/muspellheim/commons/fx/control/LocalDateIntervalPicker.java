@@ -9,7 +9,6 @@ import java.time.*;
 import java.util.*;
 
 import de.muspellheim.commons.time.*;
-import de.muspellheim.commons.util.*;
 import javafx.beans.property.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -31,8 +30,10 @@ public class LocalDateIntervalPicker extends HBox {
         // build
         setSpacing(7);
         setAlignment(Pos.CENTER_LEFT);
+        getStyleClass().add("local-date-interval-picker");
 
         start = new DatePicker();
+        start.getStyleClass().add("interval-start");
         start.setPrefWidth(130);
         getChildren().addAll(start);
 
@@ -40,6 +41,7 @@ public class LocalDateIntervalPicker extends HBox {
         getChildren().addAll(until);
 
         end = new DatePicker();
+        end.getStyleClass().add("interval-end");
         end.setPrefWidth(130);
         getChildren().addAll(end);
 
@@ -50,16 +52,6 @@ public class LocalDateIntervalPicker extends HBox {
 
         // configure
         setValue(interval);
-    }
-
-    @TestSeam
-    DatePicker getStart() {
-        return start;
-    }
-
-    @TestSeam
-    DatePicker getEnd() {
-        return end;
     }
 
     public ObjectProperty<LocalDateInterval> valueProperty() {
