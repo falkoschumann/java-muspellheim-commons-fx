@@ -32,14 +32,15 @@ public class ExceptionDialog extends Alert {
         setHeaderText(getExceptionName(exception));
         setContentText(exception.getLocalizedMessage());
 
-        String exceptionText = getExceptionStackTrace(exception);
-        GridPane details = createDetails(exceptionText);
+        String stackTrace = getExceptionStackTrace(exception);
+        GridPane details = createDetails(stackTrace);
         getDialogPane().setExpandableContent(details);
     }
 
     private static String getExceptionName(Throwable exception) {
         String name = exception.getClass().getSimpleName();
         name = name.replaceAll("([A-Z])", " $1");
+        name = name.trim();
         return name;
     }
 
@@ -50,14 +51,15 @@ public class ExceptionDialog extends Alert {
         return sw.toString();
     }
 
-    private GridPane createDetails(String exceptionText) {
+    private GridPane createDetails(String stackTrace) {
         GridPane details = new GridPane();
         details.setMaxWidth(Double.MAX_VALUE);
 
         Label label = new Label(resourceBundle.getString("exceptionDialog.stacktrace"));
         details.add(label, 0, 0);
 
-        TextArea textArea = new TextArea(exceptionText);
+        TextArea textArea = new TextArea(stackTrace);
+        textArea.getStyleClass().add("stack-trace");
         textArea.setEditable(false);
         textArea.setPrefColumnCount(70);
         textArea.setWrapText(false);
