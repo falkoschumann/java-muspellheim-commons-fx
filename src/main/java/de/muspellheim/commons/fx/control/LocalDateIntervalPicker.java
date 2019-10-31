@@ -110,20 +110,4 @@ public class LocalDateIntervalPicker extends HBox {
         }
     }
 
-    /* TODO delete main method
-    public static void main(String[] args) {
-        new JFXPanel();
-
-        Platform.runLater(() -> {
-            LocalDateIntervalPicker root = new LocalDateIntervalPicker(LocalDateInterval.of(LocalDate.now().minusDays(1), LocalDate.now()));
-            root.valueProperty().addListener(o -> System.out.println("Invalidation Listener: " + root.getValue()));
-            root.valueProperty().addListener((a, b, c) -> System.out.println("Change Listener: " + root.getValue()));
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.showAndWait();
-        });
-    }
-     */
-
 }

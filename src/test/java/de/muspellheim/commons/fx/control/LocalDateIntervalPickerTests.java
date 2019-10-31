@@ -38,9 +38,11 @@ class LocalDateIntervalPickerTests {
     @Test
     void created() {
         // Then
-        assertNull(fixture.getValue(), "value");
-        assertNull(startPicker.getValue(), "start");
-        assertNull(endPicker.getValue(), "end");
+        assertAll(
+            () -> assertNull(fixture.getValue(), "value"),
+            () -> assertNull(startPicker.getValue(), "start"),
+            () -> assertNull(endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -54,9 +56,11 @@ class LocalDateIntervalPickerTests {
         endPicker = (DatePicker) fixture.lookup(".interval-end");
 
         // Then
-        assertEquals(interval, fixture.getValue(), "value");
-        assertEquals(start, startPicker.getValue(), "start");
-        assertEquals(end, endPicker.getValue(), "end");
+        assertAll(
+            () -> assertEquals(interval, fixture.getValue(), "value"),
+            () -> assertEquals(start, startPicker.getValue(), "start"),
+            () -> assertEquals(end, endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -68,9 +72,11 @@ class LocalDateIntervalPickerTests {
         fixture.setValue(interval);
 
         // Then
-        assertEquals(interval, fixture.getValue(), "value");
-        assertEquals(start, startPicker.getValue(), "start");
-        assertEquals(end, endPicker.getValue(), "end");
+        assertAll(
+            () -> assertEquals(interval, fixture.getValue(), "value"),
+            () -> assertEquals(start, startPicker.getValue(), "start"),
+            () -> assertEquals(end, endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -85,9 +91,11 @@ class LocalDateIntervalPickerTests {
         fixture.setValue(null);
 
         // Then
-        assertNull(fixture.getValue(), "value");
-        assertNull(startPicker.getValue(), "start");
-        assertNull(endPicker.getValue(), "end");
+        assertAll(
+            () -> assertNull(fixture.getValue(), "value"),
+            () -> assertNull(startPicker.getValue(), "start"),
+            () -> assertNull(endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -100,9 +108,11 @@ class LocalDateIntervalPickerTests {
 
         // Then
         LocalDateInterval interval = LocalDateInterval.of(start, end);
-        assertEquals(interval, fixture.getValue(), "value");
-        assertEquals(start, startPicker.getValue(), "start");
-        assertEquals(end, endPicker.getValue(), "end");
+        assertAll(
+            () -> assertEquals(interval, fixture.getValue(), "value"),
+            () -> assertEquals(start, startPicker.getValue(), "start"),
+            () -> assertEquals(end, endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -118,9 +128,11 @@ class LocalDateIntervalPickerTests {
         startPicker.setValue(date);
 
         // Then
-        assertEquals(interval, fixture.getValue(), "value");
-        assertEquals(start, startPicker.getValue(), "start");
-        assertEquals(end, endPicker.getValue(), "end");
+        assertAll(
+            () -> assertEquals(interval, fixture.getValue(), "value"),
+            () -> assertEquals(start, startPicker.getValue(), "start"),
+            () -> assertEquals(end, endPicker.getValue(), "end")
+        );
     }
 
     @Test
@@ -136,9 +148,11 @@ class LocalDateIntervalPickerTests {
         endPicker.setValue(date);
 
         // Then
-        assertEquals(interval, fixture.getValue(), "value");
-        assertEquals(start, startPicker.getValue(), "start");
-        assertEquals(end, endPicker.getValue(), "end");
+        assertAll(
+            () -> assertEquals(interval, fixture.getValue(), "value"),
+            () -> assertEquals(start, startPicker.getValue(), "start"),
+            () -> assertEquals(end, endPicker.getValue(), "end")
+        );
     }
 
 }
