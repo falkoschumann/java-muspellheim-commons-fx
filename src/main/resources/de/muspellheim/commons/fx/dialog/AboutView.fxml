@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+  ~ Muspellheim Commons FX
+  ~ Copyright (c) 2019 Falko Schumann
+  -->
+
+<VBox alignment="CENTER" spacing="6.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.dialog.AboutViewController">
+    <children>
+        <ImageView fx:id="appIcon" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" styleClass="app-icon">
+            <Image url="@app-icon.png" />
+        </ImageView>
+        <Label fx:id="title" styleClass="title" text="Hello World">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Label>
+        <Label fx:id="version" styleClass="version" text="Version 1.0.0">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </Label>
+        <VBox alignment="CENTER">
+            <children>
+                <Label fx:id="copyright" styleClass="copyright" text="Copyright (c) 2019 ACME Ltd.">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </Label>
+                <Label fx:id="rights" styleClass="rights" text="All rights reserved.">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="12.0" left="36.0" right="36.0" top="12.0" />
+    </padding>
+</VBox>

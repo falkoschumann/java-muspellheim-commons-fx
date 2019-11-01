@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.*;
 import de.muspellheim.commons.fx.test.*;
 import de.muspellheim.commons.util.*;
 import javafx.application.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 
@@ -24,28 +26,33 @@ class AboutDialogTests {
     @Test
     void created() {
         // Given
-        Locale.setDefault(Locale.ENGLISH);
-        About about = About.of("Hello World", Version.parse("1.0.0"), 2019, "ACME Ltd.");
+        Locale.setDefault(Locale.GERMAN);
+        About about = About.of("Foobar", Version.parse("1.2.3"), 2018, "Muspellheim");
 
         // When
-        Phaser dialogCreated = new Phaser(1);
         AtomicReference<AboutDialog> dialog = new AtomicReference<>();
+        Phaser dialogCeated = new Phaser(1);
         Platform.runLater(() -> {
-            dialog.set(new AboutDialog(about, null));
-            dialogCreated.arrive();
+            dialog.set(new AboutDialog(about, new Image("/de/muspellheim/commons/fx/dialog/app-icon.png")));
+            dialog.get().show();
+            dialogCeated.arrive();
         });
-        dialogCreated.awaitAdvance(0);
+        dialogCeated.awaitAdvance(0);
+        Platform.runLater(() -> dialog.get().hide());
 
         // Then
-        Label title = (Label) dialog.get().getDialogPane().lookup(".title");
-        Label version = (Label) dialog.get().getDialogPane().lookup(".version");
-        Label copyright = (Label) dialog.get().getDialogPane().lookup(".copyright");
-        Label rights = (Label) dialog.get().getDialogPane().lookup(".rights");
+        Scene scene = dialog.get().getStage().getScene();
+        ImageView appIcon = (ImageView) scene.lookup(".app-icon");
+        Label title = (Label) scene.lookup(".title");
+        Label version = (Label) scene.lookup(".version");
+        Label copyright = (Label) scene.lookup(".copyright");
+        Label rights = (Label) scene.lookup(".rights");
         assertAll(
-            () -> assertEquals("Hello World", title.getText(), "title"),
-            () -> assertEquals("Version 1.0.0", version.getText(), "version"),
-            () -> assertEquals("Copyright © 2019 ACME Ltd.", copyright.getText(), "copyright"),
-            () -> assertEquals("All rights reserved.", rights.getText(), "rights")
+            () -> assertNotNull(appIcon.getImage(), "appIcon"),
+            () -> assertEquals("Foobar", title.getText(), "title"),
+            () -> assertEquals("Version 1.2.3", version.getText(), "version"),
+            () -> assertEquals("Copyright © 2018 Muspellheim", copyright.getText(), "copyright"),
+            () -> assertEquals("Alle Rechte vorbehalten.", rights.getText(), "rights")
         );
     }
 
