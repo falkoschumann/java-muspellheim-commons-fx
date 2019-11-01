@@ -16,9 +16,9 @@ import org.junit.jupiter.api.extension.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(JavaFXExtension.class)
-class LocalDateIntervalPickerTests {
+class DateIntervalPickerTests {
 
-    private LocalDateIntervalPicker fixture;
+    private DateIntervalPicker fixture;
     private DatePicker startPicker;
     private DatePicker endPicker;
 
@@ -26,7 +26,8 @@ class LocalDateIntervalPickerTests {
 
     @BeforeEach
     void setUp() {
-        fixture = new LocalDateIntervalPicker();
+        fixture = new DateIntervalPicker();
+        fixture.createDefaultSkin();
         startPicker = (DatePicker) fixture.lookup(".interval-start");
         endPicker = (DatePicker) fixture.lookup(".interval-end");
 
@@ -42,24 +43,6 @@ class LocalDateIntervalPickerTests {
             () -> assertNull(fixture.getValue(), "value"),
             () -> assertNull(startPicker.getValue(), "start"),
             () -> assertNull(endPicker.getValue(), "end")
-        );
-    }
-
-    @Test
-    void initialized() {
-        // When
-        LocalDate start = LocalDate.now(clock);
-        LocalDate end = start.plusDays(3);
-        LocalDateInterval interval = LocalDateInterval.of(start, end);
-        fixture = new LocalDateIntervalPicker(interval);
-        startPicker = (DatePicker) fixture.lookup(".interval-start");
-        endPicker = (DatePicker) fixture.lookup(".interval-end");
-
-        // Then
-        assertAll(
-            () -> assertEquals(interval, fixture.getValue(), "value"),
-            () -> assertEquals(start, startPicker.getValue(), "start"),
-            () -> assertEquals(end, endPicker.getValue(), "end")
         );
     }
 

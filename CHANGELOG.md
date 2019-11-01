@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *   Status bar control.
 
+### Changed
+
+*   Renamed date interval picker.
+*   Date interval picker base on Control.
+
 ### Fixed
 
 *   About dialog can not close.

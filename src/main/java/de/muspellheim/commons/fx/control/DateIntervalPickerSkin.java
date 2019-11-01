@@ -9,39 +9,28 @@ import java.time.*;
 import java.util.*;
 
 import de.muspellheim.commons.time.*;
-import javafx.beans.property.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-/**
- * Picker for {@link LocalDateInterval}.
- */
-public class LocalDateIntervalPicker extends HBox {
+class DateIntervalPickerSkin extends SkinBase<DateIntervalPicker> {
 
-    private final ResourceBundle bundle = ResourceBundle.getBundle(getClass().getName());
-    private final ObjectProperty<LocalDateInterval> value = new SimpleObjectProperty<>(this, "value");
+    private final ResourceBundle bundle = ResourceBundle.getBundle(DateIntervalPicker.class.getName());
 
     private final DatePicker start;
-    private final DatePicker end;
+    private final ComboBoxBase<LocalDate> end;
 
-    /**
-     * Create a picker without an interval.
-     */
-    public LocalDateIntervalPicker() {
-        this(null);
-    }
+    DateIntervalPickerSkin(DateIntervalPicker picker) {
+        super(picker);
 
-    /**
-     * Create a picker with given interval.
-     *
-     * @param interval an interval
-     */
-    public LocalDateIntervalPicker(LocalDateInterval interval) {
-        // build
-        setSpacing(7);
-        setAlignment(Pos.CENTER_LEFT);
-        getStyleClass().add("local-date-interval-picker");
+        //
+        // Create
+        //
+
+        HBox root = new HBox();
+        root.setSpacing(7);
+        root.setAlignment(Pos.CENTER_LEFT);
+        root.getStyleClass().add("local-date-interval-picker");
 
         start = new DatePicker();
         start.getStyleClass().add("interval-start");
@@ -56,44 +45,17 @@ public class LocalDateIntervalPicker extends HBox {
         end.setPrefWidth(130);
         getChildren().addAll(end);
 
-        // bind
-        valueProperty().addListener(o -> handleNewValue());
+        //
+        // Bind
+        //
+
+        getSkinnable().valueProperty().addListener(o -> handleNewValue());
         start.valueProperty().addListener(o -> handleNewStart());
         end.valueProperty().addListener(o -> handleNewEnd());
-
-        // configure
-        setValue(interval);
-    }
-
-    /**
-     * The current set interval.
-     *
-     * @return the interval
-     */
-    public ObjectProperty<LocalDateInterval> valueProperty() {
-        return value;
-    }
-
-    /**
-     * Get current interval.
-     *
-     * @return the interval
-     */
-    public LocalDateInterval getValue() {
-        return value.get();
-    }
-
-    /**
-     * Set current  interval.
-     *
-     * @param value an interval
-     */
-    public void setValue(LocalDateInterval value) {
-        this.value.set(value);
     }
 
     private void handleNewValue() {
-        LocalDateInterval interval = value.get();
+        LocalDateInterval interval = getSkinnable().getValue();
         if (interval != null) {
             start.setValue(interval.getStart());
             end.setValue(interval.getEnd());
@@ -104,7 +66,7 @@ public class LocalDateIntervalPicker extends HBox {
     }
 
     private void handleNewStart() {
-        LocalDateInterval interval = getValue();
+        LocalDateInterval interval = getSkinnable().getValue();
         LocalDate newStart = start.getValue();
         LocalDate oldStart = interval != null ? interval.getStart() : null;
         LocalDate currentEnd = interval != null ? interval.getEnd() : end.getValue();
@@ -113,14 +75,14 @@ public class LocalDateIntervalPicker extends HBox {
         }
 
         try {
-            setValue(LocalDateInterval.of(newStart, currentEnd));
+            getSkinnable().setValue(LocalDateInterval.of(newStart, currentEnd));
         } catch (IllegalArgumentException ignored) {
             start.setValue(oldStart);
         }
     }
 
     private void handleNewEnd() {
-        LocalDateInterval interval = getValue();
+        LocalDateInterval interval = getSkinnable().getValue();
         LocalDate newEnd = end.getValue();
         LocalDate oldEnd = interval != null ? interval.getEnd() : null;
         LocalDate currentStart = interval != null ? interval.getStart() : start.getValue();
@@ -130,7 +92,7 @@ public class LocalDateIntervalPicker extends HBox {
 
         try {
             interval = LocalDateInterval.of(currentStart, newEnd);
-            setValue(interval);
+            getSkinnable().setValue(interval);
         } catch (IllegalArgumentException ignored) {
             end.setValue(oldEnd);
         }
