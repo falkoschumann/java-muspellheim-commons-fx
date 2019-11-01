@@ -9,6 +9,7 @@ import de.muspellheim.commons.fx.*;
 import de.muspellheim.commons.util.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
+import javafx.stage.*;
 import lombok.*;
 
 /**
@@ -29,6 +30,9 @@ public class AboutDialog extends StageController<Parent, AboutViewController> {
         super(AboutViewController.class);
         this.about = about;
         this.appIcon = appIcon;
+
+        getStage().initModality(Modality.APPLICATION_MODAL);
+        getStage().setResizable(false);
     }
 
     @Override

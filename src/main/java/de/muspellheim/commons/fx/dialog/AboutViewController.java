@@ -15,20 +15,11 @@ import javafx.scene.image.*;
  */
 public class AboutViewController {
 
-    @FXML
-    private ImageView appIcon;
-
-    @FXML
-    private Label title;
-
-    @FXML
-    private Label version;
-
-    @FXML
-    private Label copyright;
-
-    @FXML
-    private Label rights;
+    @FXML private ImageView appIcon;
+    @FXML private Label title;
+    @FXML private Label version;
+    @FXML private Label copyright;
+    @FXML private Label rights;
 
     /**
      * Set the about information.
