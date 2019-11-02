@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExceptionDialogTests {
 
     @Test
-    void created() {
+    void created() throws Exception {
         // Given
         Locale.setDefault(Locale.ENGLISH);
         Throwable throwable = new IllegalStateException("Lorem ipsum");
@@ -33,7 +33,7 @@ class ExceptionDialogTests {
             dialog.set(new ExceptionDialog(throwable));
             dialogCreated.arrive();
         });
-        dialogCreated.awaitAdvance(0);
+        dialogCreated.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
 
         // Then
         TextArea stackTrace = (TextArea) dialog.get().getDialogPane().lookup(".stack-trace");

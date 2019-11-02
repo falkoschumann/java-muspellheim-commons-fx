@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AboutDialogTests {
 
     @Test
-    void created() {
+    void created() throws Exception {
         // Given
         Locale.setDefault(Locale.GERMAN);
         About about = About.of("Foobar", Version.parse("1.2.3"), 2018, "Muspellheim");
@@ -37,7 +37,7 @@ class AboutDialogTests {
             dialog.get().show();
             dialogCeated.arrive();
         });
-        dialogCeated.awaitAdvance(0);
+        dialogCeated.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
         Platform.runLater(() -> dialog.get().hide());
 
         // Then
