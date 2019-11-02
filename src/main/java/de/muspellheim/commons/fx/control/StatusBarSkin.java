@@ -35,16 +35,12 @@ class StatusBarSkin extends SkinBase<StatusBar> {
 
         Label text = new Label();
         text.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        text.getStyleClass().add("text");
-        GridPane.setFillHeight(text, true);
+        text.getStyleClass().add("status-text");
         GridPane.setHgrow(text, Priority.ALWAYS);
-        GridPane.setVgrow(text, Priority.ALWAYS);
         root.add(text, 1, 0);
 
         ProgressBar progress = new ProgressBar();
-        progress.getStyleClass().add("progress");
-        GridPane.setFillHeight(progress, true);
-        GridPane.setVgrow(progress, Priority.ALWAYS);
+        progress.getStyleClass().add("status-progress");
         root.add(progress, 2, 0);
 
         HBox rightItems = new HBox();

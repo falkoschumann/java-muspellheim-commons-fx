@@ -28,8 +28,8 @@ class StatusBarTests {
 
         // Then
         HBox leftItems = (HBox) statusBar.lookup(".left-items");
-        Label text = (Label) statusBar.lookup(".text");
-        ProgressBar progress = (ProgressBar) statusBar.lookup(".progress");
+        Label text = (Label) statusBar.lookup(".status-text");
+        ProgressBar progress = (ProgressBar) statusBar.lookup(".status-progress");
         HBox rightItems = (HBox) statusBar.lookup(".right-items");
         assertAll(
             () -> assertEquals("Foo", ((Labeled) leftItems.getChildren().get(0)).getText(), "left items"),

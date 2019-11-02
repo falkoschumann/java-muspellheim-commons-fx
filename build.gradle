@@ -57,7 +57,7 @@ java {
 dependencies {
     junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 
-    implementation 'de.muspellheim:muspellheim-commons:1.4.0'
+    implementation 'de.muspellheim:muspellheim-commons:1.6.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }
