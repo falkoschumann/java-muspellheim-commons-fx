@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+*   Date interval picker value was not initialized before control is shown.
+
 ## [v3.0.0] - 2019-11-03
 
 ### Added

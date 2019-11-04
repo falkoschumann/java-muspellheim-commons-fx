@@ -31,19 +31,22 @@ class DateIntervalPickerSkin extends SkinBase<DateIntervalPicker> {
         root.setSpacing(7);
         root.setAlignment(Pos.CENTER_LEFT);
         root.getStyleClass().add("local-date-interval-picker");
+        getChildren().add(root);
 
         start = new DatePicker();
         start.getStyleClass().add("interval-start");
         start.setPrefWidth(130);
-        getChildren().addAll(start);
+        root.getChildren().addAll(start);
 
         Label until = new Label(bundle.getString("until"));
-        getChildren().addAll(until);
+        root.getChildren().addAll(until);
 
         end = new DatePicker();
         end.getStyleClass().add("interval-end");
         end.setPrefWidth(130);
-        getChildren().addAll(end);
+        root.getChildren().addAll(end);
+
+        handleNewValue();
 
         //
         // Bind
