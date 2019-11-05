@@ -27,6 +27,7 @@ public class StatusBar extends Control {
      */
     public StatusBar() {
         getStyleClass().add("status-bar");
+        setFocusTraversable(false);
     }
 
     /**

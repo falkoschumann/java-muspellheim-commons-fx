@@ -18,6 +18,7 @@ public class DateIntervalPicker extends Control {
 
     public DateIntervalPicker() {
         getStyleClass().add("date-interval-picker");
+        setFocusTraversable(false);
     }
 
     /**
