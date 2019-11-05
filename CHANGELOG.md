@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.2.0] - 2019-11-05
+
+### Added
+
+*   Table cells and cell factories for `LocalDate` and `LocalDateTime`.
+
+### Fixed
+
+*   Root node of `DateIntervalPicker` and `StatusBar` should not focusable.
+
 ## [v3.1.0] - 2019-11-04
 
 ### Added

@@ -21,7 +21,7 @@ Add JCenter repository:
 
 Add dependency:
 
-    implementation 'de.muspellheim:muspellheim-commons-fx:1.0.0'
+    implementation 'de.muspellheim:muspellheim-commons-fx:3.2.0'
 
 ### Maven
 
@@ -43,7 +43,7 @@ Add dependency:
     <dependency>
         <groupId>de.muspellheim</groupId>
         <artifactId>muspellheim-commons-fx</artifactId>
-        <version>1.0.0</version>
+        <version>3.2.0</version>
     </dependency>
 
 ## Usage
