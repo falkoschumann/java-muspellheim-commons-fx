@@ -3,6 +3,17 @@ import com.github.spotbugs.SpotBugsTask
 import java.nio.file.Files
 import java.nio.file.Paths
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.openjfx:javafx-plugin:0.0.8"
+    }
+}
+
 plugins {
     id 'java-library'
     id 'checkstyle'
@@ -11,9 +22,19 @@ plugins {
     id 'com.jfrog.bintray' version '1.8.4'
     id 'com.github.spotbugs' version '2.0.0'
     id 'io.freefair.lombok' version '4.1.2'
+    id 'org.sonarqube' version '2.8'
 }
 
-version = '1.0.0'
+if (!System.getProperty("java.version").startsWith("1.8")) {
+    apply plugin: 'org.openjfx.javafxplugin'
+
+    javafx {
+        version = "11"
+        modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.swing']
+    }
+}
+
+version = '3.1.0'
 
 // ###################################################################
 // Java Library
@@ -28,11 +49,18 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    implementation 'de.muspellheim:muspellheim-commons:1.0.0'
+java {
+    registerFeature("junitSupport") {
+        usingSourceSet(sourceSets.main)
+    }
+}
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+dependencies {
+    junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+
+    implementation 'de.muspellheim:muspellheim-commons:1.6.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }
 
 jar {
@@ -53,7 +81,8 @@ test {
 
 javadoc {
     title = "Muspellheim Commons FX v${project.version}"
-    /*options.links += 'https://docs.oracle.com/javase/8/docs/api/'*/
+    options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+    options.links += 'https://falkoschumann.github.io/java-muspellheim-commons/'
     options.overview = file('src/main/javadoc/overview.html')
     options.noTimestamp = true
     destinationDir = file('docs')
@@ -86,6 +115,13 @@ checkstyle {
 // ###################################################################
 // Jacoco
 // ###################################################################
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        xml.enabled true
+    }
+}
 
 jacocoTestCoverageVerification {
     violationRules {
@@ -134,7 +170,7 @@ bintray {
         githubRepo = "falkoschumann/java-${project.name}"
         version {
             name = project.version
-            desc = 'Missing Java classes'
+            desc = 'Bundles common classes for developing Java apps with JavaFX.'
             released = new Date()
             vcsTag = "v${project.version}"
         }
@@ -202,4 +238,15 @@ static def printSpotBugsReport(String sourceSet) {
 
 lombok {
     config['lombok.nonNull.exceptionType'] = 'Jdk'
+    config['lombok.anyConstructor.addConstructorProperties'] = 'true'
+}
+
+// ###################################################################
+// Sonarqube
+// ###################################################################
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "falkoschumann_java-muspellheim-commons-fx"
+    }
 }

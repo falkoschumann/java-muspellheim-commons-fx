@@ -3,5 +3,19 @@ dist: trusty
 
 jdk:
   - oraclejdk8
-  - openjdk8
   - openjdk11
+  - openjdk12
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+
+addons:
+  sonarcloud:
+    organization: "falkoschumann"
+    token:
+      secure: "wvkclBVeY5tK4LdMNIsuT1wFmUHMiOC6abEXvydHt/f5kYaM0TICWlpX2p4pMAlZwNVsieSX+FQGwe7dmTUikdYLkH8v2SdAvtc0PmGKdBZ1tdv+XK+gXmd1qlics4B8W45DaajgJd5sh8AZM2EHs77DnNw2fW7jpZIrHRgu03mbJRj7fA71kZn4BjKVdb0Oa1v96LX3bzKsc6ATRNrW8TSEtvd9Mt2z6E3Lwgh4wHVXbAveXGOSrMARlupP2vh1YTw1dIqDMQomFA/KsKxCZN6025cuCnsZldXE/YUukMd/eECW1yMVpDfY7kDUjkXPmwJMkEwme+6z6JQh0RVSjEE9/IQ5GMs/WF22G3qR0T9Tkh6kqjsdS2zB6eexMNxMSU752cHjBxfPharZnjXDPTs4wgsCN1vzljC85MieNwUT8sM+Og4jRruZxB5Zza/+oVi9V/sUyuDszVidrdEIddKwuiW51O1xeQiyPCYLFdELfjoNN+Jr2Yj+90j+dA5MLZMr4Bu0BcoktjC+XJy4Mysbkb2J2sR9UiM2bJtyffB8i7ocmiW0PMHWMhq5a+hLJM5Zs7EEubBfMhNZuknl5wLgx5GtxZHJTnWGWUDqy/4PUG1oR1TYx+utkRGYw6e6kzjfLdr9kpb2JIVaqzkotOzrnYj99LLWodXO6Odpk1Q="
+
+script:
+  - ./gradlew sonarqube
