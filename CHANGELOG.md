@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+*   Main class of demo app is now `de.muspellheim.commons.fx.demo.App`. 
+*   Demo app uses `StageController`. 
+
 ### Fixed
 
 *   Toggle process changed status bar height. 
@@ -26,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 *   Demo showing controls and dialogs by starting main class
-    `de.muspellheim.commons.fx.DemoApp`.
+    `de.muspellheim.commons.fx.demo.DemoApp`.
 
 ### Fixed
 

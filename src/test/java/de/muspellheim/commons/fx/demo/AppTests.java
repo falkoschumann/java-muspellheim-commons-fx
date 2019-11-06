@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Falko Schumann
  */
 
-package de.muspellheim.commons.fx;
+package de.muspellheim.commons.fx.demo;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.extension.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(JavaFXExtension.class)
-class DemAppTests {
+class AppTests {
 
     @Test
     void createdWithoutErrors() throws Exception {
@@ -27,7 +27,7 @@ class DemAppTests {
         Platform.runLater(() -> {
             try {
                 Stage stage = new Stage();
-                DemoApp app = new DemoApp();
+                App app = new App();
                 app.start(stage);
             } catch (Exception e) {
                 exception.set(e);
