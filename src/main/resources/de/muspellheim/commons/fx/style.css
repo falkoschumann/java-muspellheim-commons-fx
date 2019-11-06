@@ -1,0 +1,8 @@
+/*
+ * Muspellheim Commons FX
+ * Copyright (c) 2019 Falko Schumann
+ */
+
+.label.title {
+    -fx-font-weight: bold;
+}

@@ -22,6 +22,8 @@ import javafx.stage.*;
  */
 public class DemoApp extends Application {
 
+    // TODO Use stage controller for demo
+
     /**
      * Start the demo app.
      *
@@ -37,18 +39,20 @@ public class DemoApp extends Application {
         root.getChildren().addAll(
             createDateIntervalPicker(),
             createStatusBar(),
-            createDialogs()
+            createDialogs(),
+            createValidation()
         );
 
         Scene scene = new Scene(root, 800, 400);
+        scene.getStylesheets().add("/de/muspellheim/commons/fx/style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private Node createDateIntervalPicker() {
         HBox pane = new HBox(10);
-        pane.setPadding(new Insets(5));
         pane.setAlignment(Pos.CENTER_LEFT);
+        pane.setPadding(new Insets(5));
 
         DateIntervalPicker dateIntervalPicker = new DateIntervalPicker();
         dateIntervalPicker.setValue(LocalDateInterval.lastDays(6));
@@ -66,17 +70,13 @@ public class DemoApp extends Application {
     }
 
     private Node createStatusBar() {
-        VBox pane = new VBox();
-        pane.setSpacing(10);
-
         StatusBar statusBar = new StatusBar();
         statusBar.setText("Status text");
-        pane.getChildren().add(statusBar);
 
         ToggleButton processButton = new ToggleButton("Process");
         statusBar.getRightItems().add(processButton);
 
-        TitledPane titledPane = new TitledPane("Status Bar", pane);
+        TitledPane titledPane = new TitledPane("Status Bar", statusBar);
         titledPane.setCollapsible(false);
 
         processButton.selectedProperty().addListener(o -> {
@@ -123,6 +123,23 @@ public class DemoApp extends Application {
             dialog.showAndWait();
         });
         return button;
+    }
+
+    private Node createValidation() {
+        HBox pane = new HBox(10);
+        pane.setAlignment(Pos.CENTER_LEFT);
+        pane.setPadding(new Insets(5));
+
+        Label label = new Label("Number:");
+        label.getStyleClass().add("title");
+        pane.getChildren().add(label);
+
+        TextField text = new TextField();
+        pane.getChildren().add(text);
+
+        TitledPane titledPane = new TitledPane("Validation", pane);
+        titledPane.setCollapsible(false);
+        return titledPane;
     }
 
 }
