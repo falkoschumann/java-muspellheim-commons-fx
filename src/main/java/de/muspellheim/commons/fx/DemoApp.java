@@ -55,26 +55,38 @@ public class DemoApp extends Application {
         pane.getChildren().add(dateIntervalPicker);
 
         Label valueLabel = new Label();
-        valueLabel.textProperty().bind(dateIntervalPicker.valueProperty().asString());
         pane.getChildren().add(valueLabel);
 
         TitledPane titledPane = new TitledPane("Date Interval Picker", pane);
         titledPane.setCollapsible(false);
+
+        valueLabel.textProperty().bind(dateIntervalPicker.valueProperty().asString());
+
         return titledPane;
     }
 
     private Node createStatusBar() {
-        HBox pane = new HBox();
-        pane.setPadding(new Insets(5));
+        VBox pane = new VBox();
+        pane.setSpacing(10);
 
         StatusBar statusBar = new StatusBar();
         statusBar.setText("Status text");
-        statusBar.setProgress(-1);
         pane.getChildren().add(statusBar);
-        HBox.setHgrow(statusBar, Priority.ALWAYS);
+
+        ToggleButton processButton = new ToggleButton("Process");
+        statusBar.getRightItems().add(processButton);
 
         TitledPane titledPane = new TitledPane("Status Bar", pane);
         titledPane.setCollapsible(false);
+
+        processButton.selectedProperty().addListener(o -> {
+            if (processButton.isSelected()) {
+                statusBar.setProgress(-1);
+            } else {
+                statusBar.setProgress(0);
+            }
+        });
+
         return titledPane;
     }
 
