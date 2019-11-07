@@ -8,6 +8,7 @@ package de.muspellheim.commons.fx.validation;
 import java.util.*;
 import java.util.function.*;
 
+import de.muspellheim.commons.fx.control.*;
 import javafx.application.*;
 import javafx.beans.property.*;
 import javafx.collections.*;
@@ -20,12 +21,14 @@ public class ValidationSupport {
 
     private final ObservableMap<Control, ValidationResult> validationResults = FXCollections.observableMap(new WeakHashMap<>());
 
+    private final HintPopup hintPopup = new HintPopup();
+
     public ValidationSupport() {
         validationResult.addListener((o, oldValue, newValue) -> {
             invalid.set(!newValue.getMessages().isEmpty());
             redecorate();
         });
-        validationResults.addListener((MapChangeListener.Change<? extends Control, ? extends ValidationResult> change) ->
+        validationResults.addListener((MapChangeListener.Change<?, ?> change) ->
             validationResult.set(ValidationResult.fromResults(validationResults.values()))
         );
     }
@@ -63,6 +66,13 @@ public class ValidationSupport {
 
     protected void redecorate() {
         // TODO redecorate
+
+        if (isInvalid()) {
+            ValidationMessage message = getValidationResult().getMessages().iterator().next();
+            hintPopup.show(message.getText(), message.getTarget());
+        } else {
+            hintPopup.hide();
+        }
     }
 
 }
