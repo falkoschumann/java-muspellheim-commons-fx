@@ -36,6 +36,7 @@
         <HBox alignment="CENTER_LEFT" spacing="5.0">
             <Label styleClass="title" text="Number:"/>
             <TextField fx:id="validatedText"/>
+            <Button fx:id="validButton" text="Valid" />
         </HBox>
     </TitledPane>
 </VBox>
