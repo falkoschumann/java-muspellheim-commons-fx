@@ -1,4 +1,7 @@
 de.muspellheim.commons.fx
 de.muspellheim.commons.fx.control
+de.muspellheim.commons.fx.control.decoration
+de.muspellheim.commons.fx.demo
 de.muspellheim.commons.fx.dialog
 de.muspellheim.commons.fx.test
+de.muspellheim.commons.fx.validation
