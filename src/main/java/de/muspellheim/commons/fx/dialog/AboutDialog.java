@@ -14,6 +14,8 @@ import lombok.*;
 
 /**
  * A general about dialog.
+ * <p>
+ * <img src="doc-files/about-dialog.png" alt="About dialog example">
  */
 public class AboutDialog extends StageController<Parent, AboutViewController> {
 

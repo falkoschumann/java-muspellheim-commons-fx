@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.*;
 
 import de.muspellheim.commons.fx.test.*;
 import javafx.application.*;
-import javafx.scene.control.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 
@@ -36,12 +35,7 @@ class ExceptionDialogTests {
         dialogCreated.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
 
         // Then
-        TextArea stackTrace = (TextArea) dialog.get().getDialogPane().lookup(".stack-trace");
-        assertAll(
-            () -> assertEquals("Illegal State Exception", dialog.get().getHeaderText(), "header text"),
-            () -> assertEquals("Lorem ipsum", dialog.get().getContentText(), "content text"),
-            () -> assertFalse(stackTrace.getText().isEmpty(), "stack trace not empty")
-        );
+        assertEquals("Illegal State Exception", dialog.get().getHeaderText(), "header text");
     }
 
 }

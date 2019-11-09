@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.0.0] - 2019-11-09
+
+### Added
+
+*   Validation decoration with a hint popup.
+
 ### Changed
 
 *   Main class of demo app is now `de.muspellheim.commons.fx.demo.App`. 

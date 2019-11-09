@@ -15,6 +15,7 @@ import de.muspellheim.commons.util.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+import org.controlsfx.validation.*;
 
 public class DemoViewController {
 
@@ -23,7 +24,7 @@ public class DemoViewController {
 
     @FXML private TextField validatedText;
     @FXML private Button validButton;
-    private ValidationSupport validationSupport;
+    private HintValidationSupport validationSupport;
 
     @FXML
     void initialize() {
@@ -33,10 +34,10 @@ public class DemoViewController {
 
         dateIntervalPicker.setValue(LocalDateInterval.lastDays(6));
 
-        validationSupport = new ValidationSupport();
+        validationSupport = new HintValidationSupport();
         validationSupport.registerValidator(validatedText, Validator.combine(
             Validator.createEmptyValidator("Number must be specified"),
-            Validator.createRegexValidator("Not a number", Pattern.compile("\\d*"))
+            Validator.createRegexValidator("Not a number", Pattern.compile("\\d*"), Severity.ERROR)
         ));
 
         //
@@ -60,10 +61,10 @@ public class DemoViewController {
     void showException() {
         Throwable exception = new IllegalStateException("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod "
             + "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores "
-            + "et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit " +
-            "amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam " +
-            "voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est " +
-            "Lorem ipsum dolor sit amet.");
+            + "et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit "
+            + "amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam "
+            + "voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est "
+            + "Lorem ipsum dolor sit amet.");
         CustomExceptionDialog dialog = new CustomExceptionDialog(exception);
         dialog.showAndWait();
     }

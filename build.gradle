@@ -34,7 +34,7 @@ if (!System.getProperty("java.version").startsWith("1.8")) {
     }
 }
 
-version = '3.2.0'
+version = '4.0.0'
 
 // ###################################################################
 // Java Library
@@ -129,7 +129,7 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 value = 'COVEREDRATIO'
-                minimum = 0.8
+                minimum = 0.5
             }
         }
         rule {
