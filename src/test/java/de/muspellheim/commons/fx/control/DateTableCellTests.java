@@ -6,6 +6,7 @@
 package de.muspellheim.commons.fx.control;
 
 import java.time.*;
+import java.util.*;
 
 import de.muspellheim.commons.fx.test.*;
 import org.junit.jupiter.api.*;
@@ -15,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(JavaFXExtension.class)
 class DateTableCellTests {
+
+    @BeforeEach
+    void setUp() {
+        Locale.setDefault(Locale.GERMAN);
+    }
 
     @Test
     void value() {
