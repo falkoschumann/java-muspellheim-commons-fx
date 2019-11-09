@@ -19,13 +19,6 @@
             <Label fx:id="dateIntervalPickerValue"/>
         </HBox>
     </TitledPane>
-    <TitledPane collapsible="false" text="Status Bar">
-        <StatusBar fx:id="statusBar" text="Status text">
-            <rightItems>
-                <ToggleButton fx:id="statusBarProcessButton" text="Process"/>
-            </rightItems>
-        </StatusBar>
-    </TitledPane>
     <TitledPane collapsible="false" text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <Button mnemonicParsing="false" onAction="#showAbout" text="About"/>

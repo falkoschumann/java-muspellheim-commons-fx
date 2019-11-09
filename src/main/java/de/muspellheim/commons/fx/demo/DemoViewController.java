@@ -21,9 +21,6 @@ public class DemoViewController {
     @FXML private DateIntervalPicker dateIntervalPicker;
     @FXML private Label dateIntervalPickerValue;
 
-    @FXML private StatusBar statusBar;
-    @FXML private ToggleButton statusBarProcessButton;
-
     @FXML private TextField validatedText;
     @FXML private Button validButton;
     private ValidationSupport validationSupport;
@@ -47,14 +44,6 @@ public class DemoViewController {
         //
 
         dateIntervalPickerValue.textProperty().bind(dateIntervalPicker.valueProperty().asString());
-
-        statusBarProcessButton.selectedProperty().addListener(o -> {
-            if (statusBarProcessButton.isSelected()) {
-                statusBar.setProgress(-1);
-            } else {
-                statusBar.setProgress(0);
-            }
-        });
 
         validButton.disableProperty().bind(validationSupport.invalidProperty());
     }

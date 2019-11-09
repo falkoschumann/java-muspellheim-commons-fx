@@ -12,9 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Main class of demo app is now `de.muspellheim.commons.fx.demo.App`. 
 *   Demo app uses `StageController`. 
 
-### Fixed
+### Removed
 
-*   Toggle process changed status bar height. 
+*   Status bar. ControlsFX has a status bar.
 
 ## [v3.2.0] - 2019-11-05
 
