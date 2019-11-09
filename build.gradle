@@ -59,6 +59,7 @@ dependencies {
     junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 
     implementation 'de.muspellheim:muspellheim-commons:1.8.0'
+    implementation 'org.controlsfx:controlsfx:8.40.15'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }

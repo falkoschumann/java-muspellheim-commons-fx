@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *   Main class of demo app is now `de.muspellheim.commons.fx.demo.App`. 
 *   Demo app uses `StageController`. 
+*   Replaced `ExceptionDialog` with `CustomExceptionDialog` extends ControlsFX
+    `ExceptionDialog`.
 
 ### Removed
 

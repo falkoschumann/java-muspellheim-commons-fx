@@ -28,9 +28,9 @@ class ExceptionDialogTests {
 
         // When
         Phaser dialogCreated = new Phaser(1);
-        AtomicReference<ExceptionDialog> dialog = new AtomicReference<>();
+        AtomicReference<CustomExceptionDialog> dialog = new AtomicReference<>();
         Platform.runLater(() -> {
-            dialog.set(new ExceptionDialog(throwable));
+            dialog.set(new CustomExceptionDialog(throwable));
             dialogCreated.arrive();
         });
         dialogCreated.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);

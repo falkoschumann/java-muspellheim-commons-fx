@@ -58,8 +58,13 @@ public class DemoViewController {
 
     @FXML
     void showException() {
-        Throwable exception = new IllegalStateException("Answer to the Ultimate Question of Life, the Universe, and Everything: 42");
-        ExceptionDialog dialog = new ExceptionDialog(exception);
+        Throwable exception = new IllegalStateException("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod "
+            + "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores "
+            + "et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit " +
+            "amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam " +
+            "voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est " +
+            "Lorem ipsum dolor sit amet.");
+        CustomExceptionDialog dialog = new CustomExceptionDialog(exception);
         dialog.showAndWait();
     }
 
