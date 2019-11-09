@@ -9,6 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.demo.DemoViewController">
     <TitledPane collapsible="false" text="Date Interval Picker">
         <HBox alignment="CENTER_LEFT" spacing="5.0">
@@ -16,6 +17,28 @@
             <DateIntervalPicker fx:id="dateIntervalPicker" />
             <Label fx:id="dateIntervalPickerValue" />
         </HBox>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Date and date time table cell">
+        <TableView items="${controller.dateTimes}">
+            <columns>
+                <TableColumn text="Date">
+                    <cellFactory>
+                        <DateTableCellFactory dateStyle="MEDIUM" />
+                    </cellFactory>
+                    <cellValueFactory>
+                        <PropertyValueFactory property="date" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Date Time">
+                    <cellFactory>
+                        <DateTimeTableCellFactory dateStyle="MEDIUM" timeStyle="MEDIUM" />
+                    </cellFactory>
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dateTime" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
     </TitledPane>
     <TitledPane collapsible="false" text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">

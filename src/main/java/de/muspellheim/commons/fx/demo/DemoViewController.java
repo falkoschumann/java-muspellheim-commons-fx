@@ -5,6 +5,7 @@
 
 package de.muspellheim.commons.fx.demo;
 
+import java.time.*;
 import java.util.regex.*;
 
 import de.muspellheim.commons.fx.control.*;
@@ -12,6 +13,8 @@ import de.muspellheim.commons.fx.dialog.*;
 import de.muspellheim.commons.fx.validation.*;
 import de.muspellheim.commons.time.*;
 import de.muspellheim.commons.util.*;
+import javafx.beans.property.*;
+import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -26,6 +29,8 @@ public class DemoViewController {
     @FXML private Button validButton;
     private HintValidationSupport validationSupport;
 
+    private ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
+
     @FXML
     void initialize() {
         //
@@ -33,6 +38,10 @@ public class DemoViewController {
         //
 
         dateIntervalPicker.setValue(LocalDateInterval.lastDays(6));
+
+        setDateTimes(FXCollections.observableArrayList(
+            new DateTimes(LocalDateTime.now())
+        ));
 
         validationSupport = new HintValidationSupport();
         validationSupport.registerValidator(validatedText, Validator.combine(
@@ -47,6 +56,18 @@ public class DemoViewController {
         dateIntervalPickerValue.textProperty().bind(dateIntervalPicker.valueProperty().asString());
 
         validButton.disableProperty().bind(validationSupport.invalidProperty());
+    }
+
+    public ObservableList<DateTimes> getDateTimes() {
+        return dateTimes.get();
+    }
+
+    public ReadOnlyListProperty<DateTimes> dateTimesProperty() {
+        return dateTimes.getReadOnlyProperty();
+    }
+
+    protected void setDateTimes(ObservableList<DateTimes> value) {
+        dateTimes.set(value);
     }
 
     @FXML
