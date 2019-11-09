@@ -33,7 +33,12 @@ class DateTimeTableCellTests {
         cell.updateItem(date, false);
 
         // Then
-        assertEquals("10.11.2019, 00:20:00", cell.getText(), "text");
+        // OpenJDK format with ",", Oracke JDK without
+        if (System.getProperty("java.runtime.name").contains("OpenJDK")) {
+            assertEquals("10.11.2019, 00:20:00", cell.getText(), "text");
+        } else {
+            assertEquals("10.11.2019 00:20:00", cell.getText(), "text");
+        }
     }
 
     @Test
