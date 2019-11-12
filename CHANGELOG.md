@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Dispatch queue for running tasks in application thread or background thread. 
+
 ## [v4.0.1] - 2019-11-10
 
 ### Fixed
