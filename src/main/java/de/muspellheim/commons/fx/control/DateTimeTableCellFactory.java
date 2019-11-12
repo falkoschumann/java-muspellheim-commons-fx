@@ -41,7 +41,7 @@ public class DateTimeTableCellFactory<S> implements Callback<TableColumn<S, Loca
 
     @Override
     public TableCell<S, LocalDateTime> call(TableColumn<S, LocalDateTime> param) {
-        return new DateTimeTableCell<S>(dateStyle, timeStyle);
+        return new DateTimeTableCell<>(dateStyle, timeStyle);
     }
 
 }

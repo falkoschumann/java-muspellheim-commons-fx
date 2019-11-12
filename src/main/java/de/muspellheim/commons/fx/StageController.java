@@ -139,6 +139,7 @@ public class StageController<V extends Parent, C> {
      * @param controller the loaded controller
      */
     protected void init(V view, C controller) {
+        // do nothing
     }
 
 }

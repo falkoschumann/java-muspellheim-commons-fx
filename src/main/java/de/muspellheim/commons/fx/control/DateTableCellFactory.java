@@ -31,7 +31,7 @@ public class DateTableCellFactory<S> implements Callback<TableColumn<S, LocalDat
 
     @Override
     public TableCell<S, LocalDate> call(TableColumn<S, LocalDate> param) {
-        return new DateTableCell<S>(dateStyle);
+        return new DateTableCell<>(dateStyle);
     }
 
 }

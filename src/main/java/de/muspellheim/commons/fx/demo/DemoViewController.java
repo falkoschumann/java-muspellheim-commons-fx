@@ -27,9 +27,9 @@ public class DemoViewController {
 
     @FXML private TextField validatedText;
     @FXML private Button validButton;
-    private HintValidationSupport validationSupport;
+    private final HintValidationSupport validationSupport = new HintValidationSupport();
 
-    private ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
+    private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
 
     @FXML
     void initialize() {
@@ -43,7 +43,6 @@ public class DemoViewController {
             new DateTimes(LocalDateTime.now())
         ));
 
-        validationSupport = new HintValidationSupport();
         validationSupport.registerValidator(validatedText, Validator.combine(
             Validator.createEmptyValidator("Number must be specified"),
             Validator.createRegexValidator("Not a number", Pattern.compile("\\d*"), Severity.ERROR)

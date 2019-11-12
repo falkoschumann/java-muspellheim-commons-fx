@@ -27,10 +27,10 @@ public class CustomExceptionDialog extends ExceptionDialog {
         setHeaderText(getExceptionName(exception));
         setContentText(exception.getLocalizedMessage());
 
-        // FIXME Unreleased merge request https://github.com/controlsfx/controlsfx/pull/1155
-        getDialogPane().setPrefWidth(600);
+        // Workaround: Unreleased merge request https://github.com/controlsfx/controlsfx/pull/1155
         Label content = (Label) getDialogPane().getContent();
         content.setWrapText(true);
+        content.setPrefWidth(600);
     }
 
     private static String getExceptionName(Throwable exception) {
