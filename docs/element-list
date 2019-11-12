@@ -1,4 +1,5 @@
 de.muspellheim.commons.fx
+de.muspellheim.commons.fx.concurrent
 de.muspellheim.commons.fx.control
 de.muspellheim.commons.fx.control.decoration
 de.muspellheim.commons.fx.demo
