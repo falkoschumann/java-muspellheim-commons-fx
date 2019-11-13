@@ -1,4 +1,5 @@
 [![Download](https://api.bintray.com/packages/falkoschumann/maven/muspellheim-commons-fx/images/download.svg)](https://bintray.com/falkoschumann/maven/muspellheim-commons-fx)
+[![javadoc.io](https://javadoc.io/badge2/de.muspellheim/muspellheim-commons-fx/javadoc.io.svg)](https://javadoc.io/doc/de.muspellheim/muspellheim-commons-fx)
 [![Build Status](https://travis-ci.org/falkoschumann/java-muspellheim-commons-fx.png?branch=master)](https://travis-ci.org/falkoschumann/java-muspellheim-commons-fx)
 [![Sonar Coverage](https://img.shields.io/sonar/coverage/falkoschumann_java-muspellheim-commons-fx?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=falkoschumann_java-muspellheim-commons-fx)
 [![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/falkoschumann_java-muspellheim-commons-fx?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=falkoschumann_java-muspellheim-commons-fx)
@@ -48,4 +49,4 @@ Add dependency:
 
 ## Usage
 
-See [JavaDoc](https://falkoschumann.github.io/java-muspellheim-commons-fx/).
+See [JavaDoc](https://javadoc.io/doc/de.muspellheim/muspellheim-commons-fx).
