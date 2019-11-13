@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+*   All resources bundled in one properties file `messages.proerties`.
+
 ## [v4.1.0] - 2019-11-12
 
 ### Added

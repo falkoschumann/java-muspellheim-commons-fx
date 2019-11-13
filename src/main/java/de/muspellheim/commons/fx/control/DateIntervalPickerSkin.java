@@ -15,7 +15,7 @@ import javafx.scene.layout.*;
 
 class DateIntervalPickerSkin extends SkinBase<DateIntervalPicker> {
 
-    private final ResourceBundle bundle = ResourceBundle.getBundle(DateIntervalPicker.class.getName());
+    private final ResourceBundle resources = ResourceBundle.getBundle("de.muspellheim.commons.fx.messages");
 
     private final DatePicker start;
     private final ComboBoxBase<LocalDate> end;
@@ -38,7 +38,7 @@ class DateIntervalPickerSkin extends SkinBase<DateIntervalPicker> {
         start.setPrefWidth(130);
         root.getChildren().addAll(start);
 
-        Label until = new Label(bundle.getString("until"));
+        Label until = new Label(resources.getString("DateIntervalPicker.until"));
         root.getChildren().addAll(until);
 
         end = new DatePicker();

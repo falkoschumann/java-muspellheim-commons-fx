@@ -5,7 +5,8 @@
 
 package de.muspellheim.commons.fx.dialog;
 
-import javafx.scene.control.*;
+import java.util.*;
+
 import org.controlsfx.dialog.*;
 
 /**
@@ -16,6 +17,8 @@ import org.controlsfx.dialog.*;
  */
 public class CustomExceptionDialog extends ExceptionDialog {
 
+    private final ResourceBundle resources = ResourceBundle.getBundle("de.muspellheim.commons.fx.messages");
+
     /**
      * Create a dialog with specified exception.
      *
@@ -24,13 +27,12 @@ public class CustomExceptionDialog extends ExceptionDialog {
     public CustomExceptionDialog(Throwable exception) {
         super(exception);
 
+        setTitle(resources.getString("ExceptionDialog.title"));
         setHeaderText(getExceptionName(exception));
         setContentText(exception.getLocalizedMessage());
 
-        // Workaround: Unreleased merge request https://github.com/controlsfx/controlsfx/pull/1155
-        Label content = (Label) getDialogPane().getContent();
-        content.setWrapText(true);
-        content.setPrefWidth(600);
+        // Workaround of https://github.com/controlsfx/controlsfx/issues/1211
+        getDialogPane().setContent(null);
     }
 
     private static String getExceptionName(Throwable exception) {
