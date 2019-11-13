@@ -39,7 +39,7 @@ if (!System.getProperty("java.version").startsWith("1.8")) {
     }
 }
 
-version = '4.1.0'
+version = '4.2.0'
 
 // ###################################################################
 // Java Library
@@ -63,7 +63,7 @@ java {
 dependencies {
     junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 
-    api 'de.muspellheim:muspellheim-commons:1.9.0'
+    api 'de.muspellheim:muspellheim-commons:2.0.0'
     api 'org.controlsfx:controlsfx:8.40.15'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
@@ -88,10 +88,8 @@ test {
 javadoc {
     title = "Muspellheim Commons FX v${project.version}"
     options.links += 'https://docs.oracle.com/en/java/javase/11/docs/api/'
-    options.links += 'https://falkoschumann.github.io/java-muspellheim-commons/'
+    options.links += 'https://javadoc.io/doc/de.muspellheim/muspellheim-commons/2.0.0/'
     options.overview = file('src/main/javadoc/overview.html')
-    options.noTimestamp = true
-    destinationDir = file('docs')
 }
 build.dependsOn += javadoc
 
