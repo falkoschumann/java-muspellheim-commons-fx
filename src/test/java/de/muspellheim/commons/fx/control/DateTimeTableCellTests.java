@@ -34,10 +34,10 @@ class DateTimeTableCellTests {
 
         // Then
         // OpenJDK format with ",", Oracke JDK without
-        if (System.getProperty("java.runtime.name").contains("OpenJDK")) {
-            assertEquals("10.11.2019, 00:20:00", cell.getText(), "text");
-        } else {
+        if (System.getProperty("java.version").startsWith("1.8")) {
             assertEquals("10.11.2019 00:20:00", cell.getText(), "text");
+        } else {
+            assertEquals("10.11.2019, 00:20:00", cell.getText(), "text");
         }
     }
 
