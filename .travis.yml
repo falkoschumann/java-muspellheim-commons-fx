@@ -5,6 +5,7 @@ jdk:
   - oraclejdk8
   - openjdk11
   - openjdk12
+  - openjdk13
 
 before_script:
   - "export DISPLAY=:99.0"

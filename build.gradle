@@ -261,6 +261,5 @@ lombok {
 sonarqube {
     properties {
         property 'sonar.projectKey', 'falkoschumann_java-muspellheim-commons-fx'
-        property 'sonar.jacoco.reportPaths', ''
     }
 }
