@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.2.1] - 2019-11-14
+
+### Fixed
+
+*   Maven artefact depended on OpenJFX 11.
+
 ## [v4.2.0] - 2019-11-13
 
 ### Changed
@@ -102,7 +108,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Stage controller based on view controller.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.2.1...HEAD
+[v4.2.1]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.2.0...v4.2.1
+[v4.2.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.1.0...v4.2.0
+[v4.1.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.0.1...v4.1.0
+[v4.0.1]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.0.0...v4.0.1
+[v4.0.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v3.2.0...v4.0.0
+[v3.2.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v3.1.0...v3.2.0
+[v3.1.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v3.0.0...v3.1.0
 [v3.0.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v2.0.0...v3.0.0
 [v2.0.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v1.0.0...v2.0.0
 [v1.0.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/tree/v1.0.0
