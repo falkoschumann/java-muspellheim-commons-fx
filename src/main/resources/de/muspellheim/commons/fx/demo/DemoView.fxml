@@ -5,62 +5,64 @@
   ~ Copyright (c) 2019 Falko Schumann
   -->
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import de.muspellheim.commons.fx.control.*?>
-<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.chart.*?>
-<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.demo.DemoViewController">
-    <TitledPane collapsible="false" text="Date Interval Picker">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.muspellheim.commons.fx.demo.DemoViewController" stylesheets="@../style.css"
+      prefWidth="800.0" prefHeight="600.0">
+    <TitledPane text="Date Interval Picker">
         <HBox alignment="CENTER_LEFT" spacing="5.0">
-            <Label styleClass="title" text="Interval:" />
-            <DateIntervalPicker fx:id="dateIntervalPicker" />
-            <Label fx:id="dateIntervalPickerValue" />
+            <Label styleClass="title" text="Interval:"/>
+            <DateIntervalPicker fx:id="dateIntervalPicker"/>
+            <Label fx:id="dateIntervalPickerValue"/>
         </HBox>
     </TitledPane>
-    <TitledPane collapsible="false" text="Date and date time table cell">
+    <TitledPane text="Date and date time table cell">
         <TableView items="${controller.dateTimes}">
             <columns>
                 <TableColumn text="Date">
                     <cellFactory>
-                        <DateTableCellFactory dateStyle="MEDIUM" />
+                        <DateTableCellFactory dateStyle="MEDIUM"/>
                     </cellFactory>
                     <cellValueFactory>
-                        <PropertyValueFactory property="date" />
+                        <PropertyValueFactory property="date"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Date Time">
                     <cellFactory>
-                        <DateTimeTableCellFactory dateStyle="MEDIUM" timeStyle="MEDIUM" />
+                        <DateTimeTableCellFactory dateStyle="MEDIUM" timeStyle="MEDIUM"/>
                     </cellFactory>
                     <cellValueFactory>
-                        <PropertyValueFactory property="dateTime" />
+                        <PropertyValueFactory property="dateTime"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
     </TitledPane>
-    <TitledPane collapsible="false" text="Charts">
-        <LineChart fx:id="chart" title="Long Axis Demo" legendVisible="false">
+    <TitledPane text="Charts">
+        <LineChart fx:id="chart" title="Long Axis Demo" legendVisible="false" minHeight="200">
             <xAxis>
-                <NumberAxis />
+                <NumberAxis label="Long axis"/>
             </xAxis>
             <yAxis>
-                <NumberAxis />
+                <NumberAxis label="Integer axis"/>
             </yAxis>
         </LineChart>
     </TitledPane>
-    <TitledPane collapsible="false" text="Dialogs">
+    <TitledPane text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#showAbout" text="About" />
-            <Button mnemonicParsing="false" onAction="#showException" text="Exception" />
+            <Button mnemonicParsing="false" onAction="#showAbout" text="About"/>
+            <Button mnemonicParsing="false" onAction="#showException" text="Exception"/>
         </HBox>
     </TitledPane>
-    <TitledPane collapsible="false" text="Hint Validation">
+    <TitledPane text="Hint Validation">
         <HBox alignment="CENTER_LEFT" spacing="5.0">
-            <Label styleClass="title" text="Number:" />
-            <TextField fx:id="validatedText" />
-            <Button fx:id="validButton" text="Valid" />
+            <Label styleClass="title" text="Number:"/>
+            <TextField fx:id="validatedText"/>
+            <Button fx:id="validButton" text="Valid"/>
         </HBox>
     </TitledPane>
 </VBox>
