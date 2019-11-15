@@ -117,6 +117,12 @@ artifacts {
     archives javadocJar
 }
 
+task runDemo(type: JavaExec) {
+    group 'application'
+    classpath = jar.outputs.files + sourceSets.main.runtimeClasspath - sourceSets.main.output
+    main = 'de.muspellheim.commons.fx.demo.App'
+}
+
 // ###################################################################
 // Checkstyle
 // ###################################################################

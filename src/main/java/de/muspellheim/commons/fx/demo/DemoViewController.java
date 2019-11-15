@@ -6,8 +6,10 @@
 package de.muspellheim.commons.fx.demo;
 
 import java.time.*;
+import java.util.*;
 import java.util.regex.*;
 
+import de.muspellheim.commons.fx.chart.*;
 import de.muspellheim.commons.fx.control.*;
 import de.muspellheim.commons.fx.dialog.*;
 import de.muspellheim.commons.fx.validation.*;
@@ -16,6 +18,7 @@ import de.muspellheim.commons.util.*;
 import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.fxml.*;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import org.controlsfx.validation.*;
@@ -30,6 +33,8 @@ public class DemoViewController {
     private final HintValidationSupport validationSupport = new HintValidationSupport();
 
     private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
+
+    @FXML private XYChart<Integer, Integer> chart;
 
     @FXML
     void initialize() {
@@ -55,18 +60,21 @@ public class DemoViewController {
         dateIntervalPickerValue.textProperty().bind(dateIntervalPicker.valueProperty().asString());
 
         validButton.disableProperty().bind(validationSupport.invalidProperty());
+
+        chart.dataProperty().addListener(o -> updateChartTooltips());
+        applyChartData();
     }
 
     public ObservableList<DateTimes> getDateTimes() {
         return dateTimes.get();
     }
 
-    public ReadOnlyListProperty<DateTimes> dateTimesProperty() {
-        return dateTimes.getReadOnlyProperty();
+    private void setDateTimes(ObservableList<DateTimes> value) {
+        dateTimes.set(value);
     }
 
-    protected void setDateTimes(ObservableList<DateTimes> value) {
-        dateTimes.set(value);
+    public ReadOnlyListProperty<DateTimes> dateTimesProperty() {
+        return dateTimes.getReadOnlyProperty();
     }
 
     @FXML
@@ -87,6 +95,25 @@ public class DemoViewController {
             + "Lorem ipsum dolor sit amet.");
         CustomExceptionDialog dialog = new CustomExceptionDialog(exception);
         dialog.showAndWait();
+    }
+
+    private void applyChartData() {
+        List<XYChart.Data<Integer, Integer>> data = new ArrayList<>();
+        data.add(new XYChart.Data<>(1, 4));
+        data.add(new XYChart.Data<>(3, 2));
+        data.add(new XYChart.Data<>(4, 6));
+        data.add(new XYChart.Data<>(5, 4));
+        data.add(new XYChart.Data<>(9, 7));
+        chart.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
+    }
+
+    private void updateChartTooltips() {
+        chart.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
+            new DataTooltipBuilder()
+                .addData("X value:", d.getXValue())
+                .addData("Y value:", d.getYValue())
+                .install(d.getNode());
+        });
     }
 
 }

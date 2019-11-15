@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.*?>
 <?import de.muspellheim.commons.fx.control.*?>
 <?import javafx.scene.control.cell.*?>
-<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.demo.DemoViewController">
+<?import javafx.scene.chart.*?>
+<VBox prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.muspellheim.commons.fx.demo.DemoViewController">
     <TitledPane collapsible="false" text="Date Interval Picker">
         <HBox alignment="CENTER_LEFT" spacing="5.0">
             <Label styleClass="title" text="Interval:" />
@@ -38,6 +39,16 @@
                 </TableColumn>
             </columns>
         </TableView>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Charts">
+        <LineChart fx:id="chart" title="Long Axis Demo" legendVisible="false">
+            <xAxis>
+                <NumberAxis />
+            </xAxis>
+            <yAxis>
+                <NumberAxis />
+            </yAxis>
+        </LineChart>
     </TitledPane>
     <TitledPane collapsible="false" text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">

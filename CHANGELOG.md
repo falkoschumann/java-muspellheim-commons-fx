@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Tooltip builder for name/value pairs.
+
 ## [v4.2.1] - 2019-11-14
 
 ### Fixed
