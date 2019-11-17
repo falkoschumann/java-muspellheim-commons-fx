@@ -5,11 +5,12 @@
   ~ Copyright (c) 2019 Falko Schumann
   -->
 
-<?import de.muspellheim.commons.fx.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
+<?import de.muspellheim.commons.fx.chart.*?>
+<?import de.muspellheim.commons.fx.control.*?>
 <VBox xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="de.muspellheim.commons.fx.demo.DemoViewController" stylesheets="@../style.css"
       prefWidth="800.0" prefHeight="600.0">
@@ -43,12 +44,12 @@
         </TableView>
     </TitledPane>
     <TitledPane text="Charts">
-        <LineChart fx:id="chart" title="Long Axis Demo" legendVisible="false" minHeight="200">
+        <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200">
             <xAxis>
-                <NumberAxis label="Long axis"/>
+                <IntegerAxis label="Long axis" forceZeroInRange="false"/>
             </xAxis>
             <yAxis>
-                <NumberAxis label="Integer axis"/>
+                <IntegerAxis label="Long axis"/>
             </yAxis>
         </LineChart>
     </TitledPane>
