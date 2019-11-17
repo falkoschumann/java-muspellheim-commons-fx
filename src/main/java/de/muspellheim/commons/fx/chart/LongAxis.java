@@ -66,6 +66,8 @@ public class LongAxis extends ValueAxis<Long> {
         // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
         long min = (long) minValue;
         long max = (long) maxValue;
+        long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
+        labelSize = labelSize * (maxDigists - 1);
         int numOfTickMarks = (int) Math.floor(length / labelSize);
         if (isForceZeroInRange()) {
             if (min > 0) {
