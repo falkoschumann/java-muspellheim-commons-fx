@@ -46,10 +46,10 @@
     <TitledPane text="Charts">
         <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200">
             <xAxis>
-                <IntegerAxis label="Long axis" forceZeroInRange="false"/>
+                <LongAxis label="Long axis" forceZeroInRange="false"/>
             </xAxis>
             <yAxis>
-                <IntegerAxis label="Long axis"/>
+                <LongAxis label="Long axis"/>
             </yAxis>
         </LineChart>
     </TitledPane>
