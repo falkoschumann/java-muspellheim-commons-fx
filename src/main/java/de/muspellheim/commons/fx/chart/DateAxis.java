@@ -113,11 +113,18 @@ public class DateAxis extends Axis<LocalDate> {
     protected Object autoRange(double length) {
         if (isAutoRanging()) {
             double labelSize = getTickLabelFont().getSize() * 10;
-            return autoRange(dataMinValue, dataMaxValue, length, labelSize);
+            long min = dataMinValue.toEpochDay() - 1;
+            long max = dataMaxValue.toEpochDay() + 1;
+            int numOfTickMarks = (int) Math.floor(length / labelSize);
+            long range = max - min;
+            int newTickUnit = (int) Math.max(1, range / numOfTickMarks);
+            double newScale = calculateNewScale(length, min, max);
+            return new Range(LocalDate.ofEpochDay(min), LocalDate.ofEpochDay(max), Period.ofDays(newTickUnit), newScale);
         } else {
             return getRange();
         }
     }
+
 
     @Override
     protected void setRange(Object range, boolean animate) {
@@ -197,18 +204,8 @@ public class DateAxis extends Axis<LocalDate> {
         return defaultFormatter.toString(value);
     }
 
-    private Range autoRange(LocalDate minValue, LocalDate maxValue, double length, double labelSize) {
-        long min = minValue.toEpochDay() - 1;
-        long max = maxValue.toEpochDay() + 1;
-        int numOfTickMarks = (int) Math.floor(length / labelSize);
-        long range = max - min;
-        int tickUnit = (int) Math.max(1, range / numOfTickMarks);
-        double scale = calculateNewScale(length, min, max);
-        return new Range(LocalDate.ofEpochDay(min), LocalDate.ofEpochDay(max), Period.ofDays(tickUnit), scale);
-    }
-
-    private double calculateNewScale(double length, long lowerBound, long upperBound) {
-        double range = upperBound - lowerBound;
+    private double calculateNewScale(double length, long minValue, long maxValue) {
+        double range = maxValue - minValue;
         if (getSide().isVertical()) {
             offset = length;
             return (range == 0) ? -length : -(length / range);
@@ -219,6 +216,7 @@ public class DateAxis extends Axis<LocalDate> {
     }
 
     @Value
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     private static class Range {
 
         LocalDate min;

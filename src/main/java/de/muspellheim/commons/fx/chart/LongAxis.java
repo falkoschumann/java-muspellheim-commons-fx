@@ -67,7 +67,6 @@ public class LongAxis extends ValueAxis<Long> {
         long max = (long) maxValue;
         long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
         labelSize = labelSize * (maxDigists - 1);
-        int numOfTickMarks = (int) Math.floor(length / labelSize);
         if (isForceZeroInRange()) {
             if (min > 0) {
                 min = 0;
@@ -83,32 +82,33 @@ public class LongAxis extends ValueAxis<Long> {
             max++;
         }
         long range = max - min;
-        long tickUnit = Math.max(1, range / numOfTickMarks);
+        int numOfTickMarks = (int) Math.floor(length / labelSize);
+        long newTickUnit = Math.max(1, range / numOfTickMarks);
         // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
         double scale = calculateNewScale(length, min, max);
-        return new Range(min, max, tickUnit, scale);
+        return new Range(min, max, newTickUnit, scale);
     }
 
     @Override
     protected List<Long> calculateMinorTickMarks() {
-        final List<Long> minorTickMarks = new ArrayList<>();
-        final long lowerBound = (long) getLowerBound();
-        final long upperBound = (long) getUpperBound();
-        final long tickUnit = getTickUnit();
-        final long minorUnit = tickUnit / Math.max(1, getMinorTickCount());
-        if (tickUnit > 0 && minorUnit > 0) {
-            if (((upperBound - lowerBound) / minorUnit) > 10000) {
-                System.err.println("Warning we tried to create more than 10000 minor tick marks on a NumberAxis. " +
-                    "Lower Bound=" + getLowerBound() + ", Upper Bound=" + getUpperBound() + ", Tick Unit=" + tickUnit);
+        List<Long> minorTickMarks = new ArrayList<>();
+        long min = (long) getLowerBound();
+        long max = (long) getUpperBound();
+        long majorTickUnit = getTickUnit();
+        long minorTickUnit = majorTickUnit / Math.max(1, getMinorTickCount());
+        if (majorTickUnit > 0 && minorTickUnit > 0) {
+            if (((max - min) / minorTickUnit) > 10000) {
+                System.err.println("Warning we tried to create more than 10000 minor tick marks on a NumberAxis. "
+                    + "Lower Bound=" + getLowerBound() + ", Upper Bound=" + getUpperBound() + ", Tick Unit=" + majorTickUnit);
                 return minorTickMarks;
             }
-            long major = lowerBound;
-            long count = (upperBound - major) / tickUnit;
-            for (int i = 0; major < upperBound && i < count; major += tickUnit, i++) {
-                long next = Math.min(major + tickUnit, upperBound);
-                long minor = major + minorUnit;
-                long minorCount = (next - minor) / minorUnit;
-                for (int j = 0; minor < next && j < minorCount; minor += minorUnit, j++) {
+            long major = min;
+            long count = (max - major) / majorTickUnit;
+            for (int i = 0; major < max && i < count; major += majorTickUnit, i++) {
+                long next = Math.min(major + majorTickUnit, max);
+                long minor = major + minorTickUnit;
+                long minorCount = (next - minor) / minorTickUnit;
+                for (int j = 0; minor < next && j < minorCount; minor += minorTickUnit, j++) {
                     minorTickMarks.add(minor);
                 }
             }
@@ -148,6 +148,7 @@ public class LongAxis extends ValueAxis<Long> {
     }
 
     @Value
+    @SuppressWarnings("checkstyle:VisibilityModifier")
     private static class Range {
 
         long min;
