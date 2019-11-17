@@ -63,7 +63,6 @@ public class LongAxis extends ValueAxis<Long> {
 
     @Override
     protected Object autoRange(double minValue, double maxValue, double length, double labelSize) {
-        // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
         long min = (long) minValue;
         long max = (long) maxValue;
         long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
@@ -85,14 +84,36 @@ public class LongAxis extends ValueAxis<Long> {
         }
         long range = max - min;
         long tickUnit = Math.max(1, range / numOfTickMarks);
+        // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
         double scale = calculateNewScale(length, min, max);
         return new Range(min, max, tickUnit, scale);
     }
 
     @Override
     protected List<Long> calculateMinorTickMarks() {
-        // TODO implement method
-        return Collections.emptyList();
+        final List<Long> minorTickMarks = new ArrayList<>();
+        final long lowerBound = (long) getLowerBound();
+        final long upperBound = (long) getUpperBound();
+        final long tickUnit = getTickUnit();
+        final long minorUnit = tickUnit / Math.max(1, getMinorTickCount());
+        if (tickUnit > 0 && minorUnit > 0) {
+            if (((upperBound - lowerBound) / minorUnit) > 10000) {
+                System.err.println("Warning we tried to create more than 10000 minor tick marks on a NumberAxis. " +
+                    "Lower Bound=" + getLowerBound() + ", Upper Bound=" + getUpperBound() + ", Tick Unit=" + tickUnit);
+                return minorTickMarks;
+            }
+            long major = lowerBound;
+            long count = (upperBound - major) / tickUnit;
+            for (int i = 0; major < upperBound && i < count; major += tickUnit, i++) {
+                long next = Math.min(major + tickUnit, upperBound);
+                long minor = major + minorUnit;
+                long minorCount = (next - minor) / minorUnit;
+                for (int j = 0; minor < next && j < minorCount; minor += minorUnit, j++) {
+                    minorTickMarks.add(minor);
+                }
+            }
+        }
+        return minorTickMarks;
     }
 
     @Override
