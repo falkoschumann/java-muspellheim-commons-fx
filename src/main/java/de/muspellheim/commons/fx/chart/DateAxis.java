@@ -125,7 +125,6 @@ public class DateAxis extends Axis<LocalDate> {
         }
     }
 
-
     @Override
     protected void setRange(Object range, boolean animate) {
         Range r = (Range) range;
