@@ -113,13 +113,13 @@ public class DateAxis extends Axis<LocalDate> {
     protected Object autoRange(double length) {
         if (isAutoRanging()) {
             double labelSize = getTickLabelFont().getSize() * 10;
-            long min = dataMinValue.toEpochDay() - 1;
-            long max = dataMaxValue.toEpochDay() + 1;
+            double min = toNumericValue(dataMinValue);
+            double max = toNumericValue(dataMaxValue);
             int numOfTickMarks = (int) Math.floor(length / labelSize);
-            long range = max - min;
+            double range = max - min;
             int newTickUnit = (int) Math.max(1, range / numOfTickMarks);
             double newScale = calculateNewScale(length, min, max);
-            return new Range(LocalDate.ofEpochDay(min), LocalDate.ofEpochDay(max), Period.ofDays(newTickUnit), newScale);
+            return new Range(toRealValue(min), toRealValue(max), Period.ofDays(newTickUnit), newScale);
         } else {
             return getRange();
         }
@@ -155,20 +155,20 @@ public class DateAxis extends Axis<LocalDate> {
             dataMaxValue = LocalDate.MIN;
         }
         for (LocalDate dataValue : data) {
-            dataMinValue = LocalDate.ofEpochDay(Math.min(dataMinValue.toEpochDay(), dataValue.toEpochDay()));
-            dataMaxValue = LocalDate.ofEpochDay(Math.max(dataMaxValue.toEpochDay(), dataValue.toEpochDay()));
+            dataMinValue = toRealValue(Math.min(toNumericValue(dataMinValue), toNumericValue(dataValue)));
+            dataMaxValue = toRealValue(Math.max(toNumericValue(dataMaxValue), toNumericValue(dataValue)));
         }
         super.invalidateRange(data);
     }
 
     @Override
     public double getDisplayPosition(LocalDate value) {
-        return offset + ((value.toEpochDay() - currentLowerBound.get().toEpochDay()) * getScale());
+        return offset + ((toNumericValue(value) - toNumericValue(currentLowerBound.get())) * getScale());
     }
 
     @Override
     public LocalDate getValueForDisplay(double displayPosition) {
-        return toRealValue(((displayPosition - offset) / getScale()) + currentLowerBound.get().toEpochDay());
+        return toRealValue(((displayPosition - offset) / getScale()) + toNumericValue(currentLowerBound.get()));
     }
 
     @Override
@@ -203,7 +203,7 @@ public class DateAxis extends Axis<LocalDate> {
         return defaultFormatter.toString(value);
     }
 
-    private double calculateNewScale(double length, long minValue, long maxValue) {
+    private double calculateNewScale(double length, double minValue, double maxValue) {
         double range = maxValue - minValue;
         if (getSide().isVertical()) {
             offset = length;
