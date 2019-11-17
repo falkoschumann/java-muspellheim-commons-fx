@@ -46,7 +46,7 @@
     <TitledPane text="Charts">
         <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200">
             <xAxis>
-                <LongAxis label="Long axis" forceZeroInRange="false"/>
+                <DateAxis label="Date axis"/>
             </xAxis>
             <yAxis>
                 <LongAxis label="Long axis"/>

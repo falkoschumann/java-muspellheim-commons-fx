@@ -6,6 +6,7 @@
 package de.muspellheim.commons.fx.demo;
 
 import java.time.*;
+import java.time.format.*;
 import java.util.*;
 import java.util.regex.*;
 
@@ -34,7 +35,7 @@ public class DemoViewController {
 
     private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
 
-    @FXML private XYChart<Integer, Integer> chart;
+    @FXML private XYChart<LocalDate, Integer> chart;
 
     @FXML
     void initialize() {
@@ -98,20 +99,20 @@ public class DemoViewController {
     }
 
     private void applyChartData() {
-        List<XYChart.Data<Integer, Integer>> data = new ArrayList<>();
-        data.add(new XYChart.Data<>(1, 4));
-        data.add(new XYChart.Data<>(3, 2));
-        data.add(new XYChart.Data<>(4, 6));
-        data.add(new XYChart.Data<>(5, 4));
-        data.add(new XYChart.Data<>(9, 7));
+        List<XYChart.Data<LocalDate, Integer>> data = new ArrayList<>();
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 4));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 2));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 6));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 4));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 7));
         chart.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
     }
 
     private void updateChartTooltips() {
         chart.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
             new DataTooltipBuilder()
-                .addData("X value:", d.getXValue())
-                .addData("Y value:", d.getYValue())
+                .addData("Date value:", d.getXValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+                .addData("Integer value:", d.getYValue())
                 .install(d.getNode());
         });
     }
