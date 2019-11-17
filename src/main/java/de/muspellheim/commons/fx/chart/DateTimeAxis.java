@@ -5,6 +5,7 @@
 
 package de.muspellheim.commons.fx.chart;
 
+import java.time.Duration;
 import java.time.*;
 import java.util.*;
 
@@ -14,11 +15,11 @@ import javafx.util.*;
 import javafx.util.converter.*;
 import lombok.*;
 
-public class DateAxis extends Axis<LocalDate> {
+public class DateTimeAxis extends Axis<LocalDateTime> {
 
-    private final StringConverter<LocalDate> defaultFormatter = new LocalDateStringConverter();
+    private final StringConverter<LocalDateTime> defaultFormatter = new LocalDateTimeStringConverter();
 
-    private ObjectProperty<LocalDate> lowerBound = new SimpleObjectProperty<LocalDate>(this, "lowerBound") {
+    private ObjectProperty<LocalDateTime> lowerBound = new SimpleObjectProperty<LocalDateTime>(this, "lowerBound") {
         @Override
         protected void invalidated() {
             if (!isAutoRanging()) {
@@ -28,7 +29,7 @@ public class DateAxis extends Axis<LocalDate> {
         }
     };
 
-    private ObjectProperty<LocalDate> upperBound = new SimpleObjectProperty<LocalDate>(this, "upperBound") {
+    private ObjectProperty<LocalDateTime> upperBound = new SimpleObjectProperty<LocalDateTime>(this, "upperBound") {
         @Override
         protected void invalidated() {
             if (!isAutoRanging()) {
@@ -38,7 +39,7 @@ public class DateAxis extends Axis<LocalDate> {
         }
     };
 
-    private ObjectProperty<Period> tickUnit = new SimpleObjectProperty<Period>(this, "tickUnit", Period.ofDays(1)) {
+    private ObjectProperty<Duration> tickUnit = new SimpleObjectProperty<Duration>(this, "tickUnit", Duration.ofHours(1)) {
         @Override
         protected void invalidated() {
             if (!isAutoRanging()) {
@@ -55,45 +56,45 @@ public class DateAxis extends Axis<LocalDate> {
         }
     };
 
-    private final ObjectProperty<LocalDate> currentLowerBound = new SimpleObjectProperty<>(this, "currentLowerBound");
+    private final ObjectProperty<LocalDateTime> currentLowerBound = new SimpleObjectProperty<>(this, "currentLowerBound");
 
     private double offset;
-    private LocalDate dataMinValue;
-    private LocalDate dataMaxValue;
+    private LocalDateTime dataMinValue;
+    private LocalDateTime dataMaxValue;
 
-    public final LocalDate getLowerBound() {
+    public final LocalDateTime getLowerBound() {
         return lowerBound.get();
     }
 
-    public final void setLowerBound(LocalDate value) {
+    public final void setLowerBound(LocalDateTime value) {
         lowerBound.set(value);
     }
 
-    public final ObjectProperty<LocalDate> lowerBoundProperty() {
+    public final ObjectProperty<LocalDateTime> lowerBoundProperty() {
         return lowerBound;
     }
 
-    public final LocalDate getUpperBound() {
+    public final LocalDateTime getUpperBound() {
         return upperBound.get();
     }
 
-    public final void setUpperBound(LocalDate value) {
+    public final void setUpperBound(LocalDateTime value) {
         upperBound.set(value);
     }
 
-    public final ObjectProperty<LocalDate> upperBoundProperty() {
+    public final ObjectProperty<LocalDateTime> upperBoundProperty() {
         return upperBound;
     }
 
-    public final Period getTickUnit() {
+    public final Duration getTickUnit() {
         return tickUnit.get();
     }
 
-    public final void setTickUnit(Period value) {
+    public final void setTickUnit(Duration value) {
         tickUnit.set(value);
     }
 
-    public final ObjectProperty<Period> tickUnitProperty() {
+    public final ObjectProperty<Duration> tickUnitProperty() {
         return tickUnit;
     }
 
@@ -117,10 +118,10 @@ public class DateAxis extends Axis<LocalDate> {
             double max = toNumericValue(dataMaxValue);
             int numOfTickMarks = (int) Math.floor(length / labelSize);
             double range = max - min;
-            // TODO tick unit: days, months, years, ...
-            int newTickUnit = (int) Math.max(1, range / numOfTickMarks);
+            // TODO tick unit: minutes, hours, days, months, years, ...
+            long newTickUnit = (long) Math.max(1, range / numOfTickMarks);
             double newScale = calculateNewScale(length, min, max);
-            return new Range(toRealValue(min), toRealValue(max), Period.ofDays(newTickUnit), newScale);
+            return new Range(toRealValue(min), toRealValue(max), Duration.ofMillis(newTickUnit), newScale);
         } else {
             return getRange();
         }
@@ -147,15 +148,15 @@ public class DateAxis extends Axis<LocalDate> {
     }
 
     @Override
-    public void invalidateRange(List<LocalDate> data) {
+    public void invalidateRange(List<LocalDateTime> data) {
         if (data.isEmpty()) {
             dataMaxValue = getUpperBound();
             dataMinValue = getLowerBound();
         } else {
-            dataMinValue = LocalDate.MAX;
-            dataMaxValue = LocalDate.MIN;
+            dataMinValue = LocalDateTime.of(1_000_000, 12, 31, 23, 59);
+            dataMaxValue = LocalDateTime.of(-1_000_000, 1, 1, 0, 0);
         }
-        for (LocalDate dataValue : data) {
+        for (LocalDateTime dataValue : data) {
             dataMinValue = toRealValue(Math.min(toNumericValue(dataMinValue), toNumericValue(dataValue)));
             dataMaxValue = toRealValue(Math.max(toNumericValue(dataMaxValue), toNumericValue(dataValue)));
         }
@@ -163,36 +164,36 @@ public class DateAxis extends Axis<LocalDate> {
     }
 
     @Override
-    public double getDisplayPosition(LocalDate value) {
+    public double getDisplayPosition(LocalDateTime value) {
         return offset + ((toNumericValue(value) - toNumericValue(currentLowerBound.get())) * getScale());
     }
 
     @Override
-    public LocalDate getValueForDisplay(double displayPosition) {
+    public LocalDateTime getValueForDisplay(double displayPosition) {
         return toRealValue(((displayPosition - offset) / getScale()) + toNumericValue(currentLowerBound.get()));
     }
 
     @Override
-    public boolean isValueOnAxis(LocalDate value) {
+    public boolean isValueOnAxis(LocalDateTime value) {
         return (value.equals(getLowerBound()) || value.isAfter(getLowerBound()))
             && (value.equals(getUpperBound()) || value.isBefore(getUpperBound()));
     }
 
     @Override
-    public double toNumericValue(LocalDate value) {
-        return (value == null) ? Double.NaN : value.toEpochDay();
+    public double toNumericValue(LocalDateTime value) {
+        return (value == null) ? Double.NaN : value.toInstant(ZoneOffset.UTC).toEpochMilli();
     }
 
     @Override
-    public LocalDate toRealValue(double value) {
-        return LocalDate.ofEpochDay((long) value);
+    public LocalDateTime toRealValue(double value) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli((long) value), ZoneOffset.UTC);
     }
 
     @Override
-    protected List<LocalDate> calculateTickValues(double length, Object range) {
+    protected List<LocalDateTime> calculateTickValues(double length, Object range) {
         Range r = (Range) range;
-        List<LocalDate> tickValues = new ArrayList<>();
-        for (LocalDate tickValue = r.getMin(); tickValue.isBefore(r.getMax()); tickValue = tickValue.plus(r.getTickUnit())) {
+        List<LocalDateTime> tickValues = new ArrayList<>();
+        for (LocalDateTime tickValue = r.getMin(); tickValue.isBefore(r.getMax()); tickValue = tickValue.plus(r.getTickUnit())) {
             tickValues.add(tickValue);
         }
         tickValues.add(r.getMax());
@@ -200,7 +201,7 @@ public class DateAxis extends Axis<LocalDate> {
     }
 
     @Override
-    protected String getTickMarkLabel(LocalDate value) {
+    protected String getTickMarkLabel(LocalDateTime value) {
         return defaultFormatter.toString(value);
     }
 
@@ -219,9 +220,9 @@ public class DateAxis extends Axis<LocalDate> {
     @SuppressWarnings("checkstyle:VisibilityModifier")
     private static class Range {
 
-        LocalDate min;
-        LocalDate max;
-        Period tickUnit;
+        LocalDateTime min;
+        LocalDateTime max;
+        Duration tickUnit;
         double scale;
 
     }

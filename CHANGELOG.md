@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.3.0] - 2019-11-17
+
 ### Added
 
 *   Tooltip builder for name/value pairs.
 *   Long axis based on `ValueAxis`.
-*   Date axis.
+*   Date and date time axis.
 
 ## [v4.2.1] - 2019-11-14
 

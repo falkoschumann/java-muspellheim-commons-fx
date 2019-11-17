@@ -83,8 +83,8 @@ public class LongAxis extends ValueAxis<Long> {
         }
         long range = max - min;
         int numOfTickMarks = (int) Math.floor(length / labelSize);
-        long newTickUnit = Math.max(1, range / numOfTickMarks);
         // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
+        long newTickUnit = Math.max(1, range / numOfTickMarks);
         double scale = calculateNewScale(length, min, max);
         return new Range(min, max, newTickUnit, scale);
     }

@@ -47,6 +47,7 @@
         <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200">
             <xAxis>
                 <DateAxis label="Date axis"/>
+                <!--<DateTimeAxis label="Date time axis"/>-->
             </xAxis>
             <yAxis>
                 <LongAxis label="Long axis"/>

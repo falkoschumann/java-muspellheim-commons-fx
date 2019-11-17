@@ -105,6 +105,13 @@ public class DemoViewController {
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 6));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 4));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 7));
+        /*
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7));
+        */
         chart.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
     }
 
