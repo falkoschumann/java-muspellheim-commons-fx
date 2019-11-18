@@ -49,6 +49,15 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
         }
     };
 
+    private final ObjectProperty<StringConverter<LocalDateTime>> tickLabelFormatter =
+        new SimpleObjectProperty<StringConverter<LocalDateTime>>(this, "tickLabelFormatter", null) {
+            @Override
+            protected void invalidated() {
+                invalidateRange();
+                requestAxisLayout();
+            }
+        };
+
     private ReadOnlyDoubleWrapper scale = new ReadOnlyDoubleWrapper(this, "scale", 0) {
         @Override
         protected void invalidated() {
@@ -96,6 +105,18 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
 
     public final ObjectProperty<Duration> tickUnitProperty() {
         return tickUnit;
+    }
+
+    public final StringConverter<LocalDateTime> getTickLabelFormatter() {
+        return tickLabelFormatter.getValue();
+    }
+
+    public final void setTickLabelFormatter(StringConverter<LocalDateTime> value) {
+        tickLabelFormatter.setValue(value);
+    }
+
+    public final ObjectProperty<StringConverter<LocalDateTime>> tickLabelFormatterProperty() {
+        return tickLabelFormatter;
     }
 
     public final double getScale() {

@@ -75,15 +75,9 @@ public class LongAxis extends ValueAxis<Long> {
                 max = 0;
             }
         }
-        if (min != 0) {
-            min--;
-        }
-        if (max != 0) {
-            max++;
-        }
         long range = max - min;
         int numOfTickMarks = (int) Math.floor(length / labelSize);
-        // TODO tick unit: 1, 5, 10, 50, 100, 500, 1000, ...
+        // TODO normalize tick unit: 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, ...
         long newTickUnit = Math.max(1, range / numOfTickMarks);
         double scale = calculateNewScale(length, min, max);
         return new Range(min, max, newTickUnit, scale);

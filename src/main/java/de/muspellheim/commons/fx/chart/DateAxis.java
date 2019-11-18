@@ -48,6 +48,15 @@ public class DateAxis extends Axis<LocalDate> {
         }
     };
 
+    private final ObjectProperty<StringConverter<LocalDate>> tickLabelFormatter =
+        new SimpleObjectProperty<StringConverter<LocalDate>>(this, "tickLabelFormatter", null) {
+            @Override
+            protected void invalidated() {
+                invalidateRange();
+                requestAxisLayout();
+            }
+        };
+
     private ReadOnlyDoubleWrapper scale = new ReadOnlyDoubleWrapper(this, "scale", 0) {
         @Override
         protected void invalidated() {
@@ -95,6 +104,18 @@ public class DateAxis extends Axis<LocalDate> {
 
     public final ObjectProperty<Period> tickUnitProperty() {
         return tickUnit;
+    }
+
+    public final StringConverter<LocalDate> getTickLabelFormatter() {
+        return tickLabelFormatter.getValue();
+    }
+
+    public final void setTickLabelFormatter(StringConverter<LocalDate> value) {
+        tickLabelFormatter.setValue(value);
+    }
+
+    public final ObjectProperty<StringConverter<LocalDate>> tickLabelFormatterProperty() {
+        return tickLabelFormatter;
     }
 
     public final double getScale() {
@@ -203,7 +224,12 @@ public class DateAxis extends Axis<LocalDate> {
 
     @Override
     protected String getTickMarkLabel(LocalDate value) {
-        return defaultFormatter.toString(value);
+        StringConverter<LocalDate> formatter = getTickLabelFormatter();
+        if (formatter == null) {
+            formatter = defaultFormatter;
+        }
+        return formatter.toString(value);
+
     }
 
     private double calculateNewScale(double length, double minValue, double maxValue) {

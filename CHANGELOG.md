@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Formattable tick label for Date and date time axis.  
+
 ### Fixed
 
 *   Date and date time axis did not shown ticks if auto range disabled.

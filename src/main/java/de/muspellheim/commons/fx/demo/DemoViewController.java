@@ -33,9 +33,12 @@ public class DemoViewController {
     @FXML private Button validButton;
     private final HintValidationSupport validationSupport = new HintValidationSupport();
 
-    private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>();
+    private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>(this, "dateTimes");
 
-    @FXML private XYChart<LocalDate, Integer> chart;
+    @FXML private XYChart<LocalDateTime, Integer> chart;
+    @FXML private DateTimeAxis dateTimeAxis;
+    @FXML private DateAxis dateAxis;
+    @FXML private LongAxis longAxis;
 
     @FXML
     void initialize() {
@@ -54,6 +57,16 @@ public class DemoViewController {
             Validator.createRegexValidator("Not a number", Pattern.compile("\\d*"), Severity.ERROR)
         ));
 
+        /*
+        dateAxis.setLowerBound(LocalDate.of(2019, 10, 22));
+        dateAxis.setUpperBound(LocalDate.of(2019, 11, 15));
+        dateAxis.setTickUnit(Period.ofDays(7));
+        dateTimeAxis.setAutoRanging(false);
+        dateTimeAxis.setLowerBound(LocalDateTime.of(2019, 11, 16, 23, 0));
+        dateTimeAxis.setUpperBound(LocalDateTime.of(2019, 11, 17, 8, 0));
+        dateTimeAxis.setTickUnit(Duration.ofHours(2));
+        */
+
         //
         // Bind
         //
@@ -66,7 +79,7 @@ public class DemoViewController {
         applyChartData();
     }
 
-    public ObservableList<DateTimes> getDateTimes() {
+    public final ObservableList<DateTimes> getDateTimes() {
         return dateTimes.get();
     }
 
@@ -74,7 +87,7 @@ public class DemoViewController {
         dateTimes.set(value);
     }
 
-    public ReadOnlyListProperty<DateTimes> dateTimesProperty() {
+    public final ReadOnlyListProperty<DateTimes> dateTimesProperty() {
         return dateTimes.getReadOnlyProperty();
     }
 
@@ -99,19 +112,20 @@ public class DemoViewController {
     }
 
     private void applyChartData() {
-        List<XYChart.Data<LocalDate, Integer>> data = new ArrayList<>();
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 4));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 2));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 6));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 4));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 7));
         /*
+        List<XYChart.Data<LocalDate, Integer>> data = new ArrayList<>();
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 41));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 23));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 65));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 42));
+        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 78));
+        */
+        List<XYChart.Data<LocalDateTime, Integer>> data = new ArrayList<>();
         data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4));
         data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2));
         data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6));
         data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4));
         data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7));
-        */
         chart.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
     }
 
