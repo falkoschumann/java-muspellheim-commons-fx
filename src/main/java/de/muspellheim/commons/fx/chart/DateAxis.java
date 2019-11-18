@@ -112,7 +112,7 @@ public class DateAxis extends Axis<LocalDate> {
     @Override
     protected Object autoRange(double length) {
         if (isAutoRanging()) {
-            double labelSize = getTickLabelFont().getSize() * 10;
+            double labelSize = getTickLabelFont().getSize() * 12;
             double min = toNumericValue(dataMinValue);
             double max = toNumericValue(dataMaxValue);
             int numOfTickMarks = (int) Math.floor(length / labelSize);
@@ -122,6 +122,8 @@ public class DateAxis extends Axis<LocalDate> {
             double newScale = calculateNewScale(length, min, max);
             return new Range(toRealValue(min), toRealValue(max), Period.ofDays(newTickUnit), newScale);
         } else {
+            currentLowerBound.set(getLowerBound());
+            setScale(calculateNewScale(length, toNumericValue(getLowerBound()), toNumericValue(getUpperBound())));
             return getRange();
         }
     }

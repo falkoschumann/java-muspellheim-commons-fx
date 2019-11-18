@@ -123,6 +123,8 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
             double newScale = calculateNewScale(length, min, max);
             return new Range(toRealValue(min), toRealValue(max), Duration.ofMillis(newTickUnit), newScale);
         } else {
+            currentLowerBound.set(getLowerBound());
+            setScale(calculateNewScale(length, toNumericValue(getLowerBound()), toNumericValue(getUpperBound())));
             return getRange();
         }
     }
@@ -202,7 +204,11 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
 
     @Override
     protected String getTickMarkLabel(LocalDateTime value) {
-        return defaultFormatter.toString(value);
+        StringConverter<LocalDateTime> formatter = getTickLabelFormatter();
+        if (formatter == null) {
+            formatter = defaultFormatter;
+        }
+        return formatter.toString(value);
     }
 
     private double calculateNewScale(double length, double minValue, double maxValue) {

@@ -66,7 +66,7 @@ public class LongAxis extends ValueAxis<Long> {
         long min = (long) minValue;
         long max = (long) maxValue;
         long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
-        labelSize = labelSize * (maxDigists - 1);
+        labelSize = labelSize * maxDigists;
         if (isForceZeroInRange()) {
             if (min > 0) {
                 min = 0;

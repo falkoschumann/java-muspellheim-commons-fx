@@ -44,13 +44,13 @@
         </TableView>
     </TitledPane>
     <TitledPane text="Charts">
-        <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200">
+        <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200" prefHeight="800">
             <xAxis>
-                <DateAxis label="Date axis"/>
-                <!--<DateTimeAxis label="Date time axis"/>-->
+                <!--<DateAxis fx:id="dateAxis" label="Date axis"/>-->
+                <DateTimeAxis fx:id="dateTimeAxis" label="Date time axis"/>
             </xAxis>
             <yAxis>
-                <LongAxis label="Long axis"/>
+                <LongAxis fx:id="longAxis" label="Long axis"/>
             </yAxis>
         </LineChart>
     </TitledPane>
