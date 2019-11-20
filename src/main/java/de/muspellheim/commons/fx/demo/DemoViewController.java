@@ -148,13 +148,11 @@ public class DemoViewController {
     }
 
     private void updateChartTooltips2() {
-        chart2.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
-            new DataTooltipBuilder()
-                .applyTitle("Hello Data")
-                .addData("Date time:", d.getXValue().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
-                .addData("Long:", d.getYValue())
-                .install(d.getNode());
-        });
+        chart2.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> new DataTooltipBuilder()
+            .applyTitle("Hello Data")
+            .addData("Date time:", d.getXValue().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+            .addData("Long:", d.getYValue())
+            .install(d.getNode()));
     }
 
 }
