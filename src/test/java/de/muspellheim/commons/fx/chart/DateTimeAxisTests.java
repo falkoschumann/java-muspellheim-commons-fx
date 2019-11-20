@@ -48,6 +48,16 @@ class DateTimeAxisTests {
         List<LocalDateTime> tickValues = fixture.calculateTickValues(750, range);
 
         // Then
+        // TODO normalised number of ticks: 6
+        /*
+        assertEquals(Arrays.asList(
+            LocalDateTime.of(2019, 11, 16, 21, 0),
+            LocalDateTime.of(2019, 11, 17, 0, 0),
+            LocalDateTime.of(2019, 11, 17, 3, 0),
+            LocalDateTime.of(2019, 11, 17, 6, 0),
+            LocalDateTime.of(2019, 11, 17, 9, 0),
+            LocalDateTime.of(2019, 11, 17, 12, 0)), tickValues, "tickValues");
+        */
         assertEquals(Arrays.asList(
             LocalDateTime.of(2019, 11, 16, 21, 34),
             LocalDateTime.of(2019, 11, 16, 23, 38, 30),

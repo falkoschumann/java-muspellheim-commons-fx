@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Added
+### Added
 
 *   `DataTooltipBuilder` optionally apply a title to tooltip.
+
+### Changed
+
+*   Optimised axis tick values of `LongAxis` and `DateAxis`.
 
 ## [v4.4.0] - 2019-11-18
 
