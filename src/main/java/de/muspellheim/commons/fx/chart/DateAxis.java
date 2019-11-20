@@ -153,8 +153,8 @@ public class DateAxis extends Axis<LocalDate> {
     }
 
     protected Object autoRange(LocalDate minValue, LocalDate maxValue, double length, double labelSize) {
-        double min = toNumericValue(minValue);
-        double max = toNumericValue(maxValue);
+        double min = toNumericValue(minValue.minusDays(1));
+        double max = toNumericValue(maxValue.plusDays(1));
         int numOfTickMarks = (int) Math.max(2, Math.floor(length / labelSize));
         double range = max - min;
         // TODO tick unit: days, months, years, ...
@@ -232,7 +232,9 @@ public class DateAxis extends Axis<LocalDate> {
         for (LocalDate tickValue = r.getMin(); tickValue.isBefore(r.getMax()); tickValue = tickValue.plus(r.getTickUnit())) {
             tickValues.add(tickValue);
         }
-        tickValues.add(r.getMax());
+        if (!tickValues.contains(r.getMax())) {
+            tickValues.add(r.getMax());
+        }
         return tickValues;
     }
 

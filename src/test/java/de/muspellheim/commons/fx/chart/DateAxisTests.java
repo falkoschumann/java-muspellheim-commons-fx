@@ -49,17 +49,17 @@ class DateAxisTests {
 
         // Then
         assertEquals(Arrays.asList(
-            LocalDate.of(2019, 10, 20),
-            LocalDate.of(2019, 10, 23),
-            LocalDate.of(2019, 10, 26),
-            LocalDate.of(2019, 10, 29),
-            LocalDate.of(2019, 11, 1),
-            LocalDate.of(2019, 11, 4),
-            LocalDate.of(2019, 11, 7),
-            LocalDate.of(2019, 11, 10),
-            LocalDate.of(2019, 11, 13),
-            LocalDate.of(2019, 11, 16),
-            LocalDate.of(2019, 11, 17)), tickValues, "tickValues");
+            LocalDate.of(2019, 10, 19),
+            LocalDate.of(2019, 10, 22),
+            LocalDate.of(2019, 10, 25),
+            LocalDate.of(2019, 10, 28),
+            LocalDate.of(2019, 10, 31),
+            LocalDate.of(2019, 11, 3),
+            LocalDate.of(2019, 11, 6),
+            LocalDate.of(2019, 11, 9),
+            LocalDate.of(2019, 11, 12),
+            LocalDate.of(2019, 11, 15),
+            LocalDate.of(2019, 11, 18)), tickValues, "tickValues");
     }
 
     @Test
