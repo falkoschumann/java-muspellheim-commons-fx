@@ -126,11 +126,11 @@ public class DemoViewController {
     private void applyChartData2() {
         XYChart.Series<LocalDateTime, Long> seriesA = new XYChart.Series<>();
         seriesA.setName("Series A");
-        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4L));
-        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2L));
-        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6L));
-        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4L));
-        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 41L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 23L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 65L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 42L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 78L));
         chart2.getData().add(seriesA);
     }
 
