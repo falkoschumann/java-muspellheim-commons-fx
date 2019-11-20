@@ -71,6 +71,16 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
     private LocalDateTime dataMinValue;
     private LocalDateTime dataMaxValue;
 
+    public DateTimeAxis() {
+        this(Clock.systemDefaultZone());
+    }
+
+    public DateTimeAxis(Clock clock) {
+        LocalDateTime todayMidnight = LocalDateTime.of(LocalDate.now(clock), LocalTime.MIDNIGHT);
+        setLowerBound(todayMidnight);
+        setUpperBound(todayMidnight.plusDays(1));
+    }
+
     public final LocalDateTime getLowerBound() {
         return lowerBound.get();
     }
@@ -134,20 +144,24 @@ public class DateTimeAxis extends Axis<LocalDateTime> {
     @Override
     protected Object autoRange(double length) {
         if (isAutoRanging()) {
-            double labelSize = getTickLabelFont().getSize() * 10;
-            double min = toNumericValue(dataMinValue);
-            double max = toNumericValue(dataMaxValue);
-            int numOfTickMarks = (int) Math.floor(length / labelSize);
-            double range = max - min;
-            // TODO tick unit: minutes, hours, days, months, years, ...
-            long newTickUnit = (long) Math.max(1, range / numOfTickMarks);
-            double newScale = calculateNewScale(length, min, max);
-            return new Range(toRealValue(min), toRealValue(max), Duration.ofMillis(newTickUnit), newScale);
+            double labelSize = getTickLabelFont().getSize() * 15;
+            return autoRange(dataMinValue, dataMaxValue, length, labelSize);
         } else {
             currentLowerBound.set(getLowerBound());
             setScale(calculateNewScale(length, toNumericValue(getLowerBound()), toNumericValue(getUpperBound())));
             return getRange();
         }
+    }
+
+    protected Object autoRange(LocalDateTime minValue, LocalDateTime maxValue, double length, double labelSize) {
+        double min = toNumericValue(minValue);
+        double max = toNumericValue(maxValue);
+        int numOfTickMarks = (int) Math.max(2, Math.floor(length / labelSize));
+        double range = max - min;
+        // TODO tick unit: minutes, hours, days, months, years, ...
+        long newTickUnit = (long) Math.max(1, range / numOfTickMarks);
+        double newScale = calculateNewScale(length, min, max);
+        return new Range(toRealValue(min), toRealValue(max), Duration.ofMillis(newTickUnit), newScale);
     }
 
     @Override

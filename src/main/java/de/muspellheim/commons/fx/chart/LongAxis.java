@@ -65,8 +65,6 @@ public class LongAxis extends ValueAxis<Long> {
     protected Object autoRange(double minValue, double maxValue, double length, double labelSize) {
         long min = (long) minValue;
         long max = (long) maxValue;
-        long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
-        labelSize = labelSize * maxDigists;
         if (isForceZeroInRange()) {
             if (min > 0) {
                 min = 0;
@@ -75,10 +73,14 @@ public class LongAxis extends ValueAxis<Long> {
                 max = 0;
             }
         }
+
+        long maxDigists = Math.max(String.valueOf(min).length(), String.valueOf(max).length());
+        labelSize = labelSize * maxDigists;
         long range = max - min;
-        int numOfTickMarks = (int) Math.floor(length / labelSize);
-        // TODO normalize tick unit: 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, ...
+        int numOfTickMarks = (int) Math.max(2, Math.floor(length / labelSize));
         long newTickUnit = Math.max(1, range / numOfTickMarks);
+
+        // TODO normalize tick unit: 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, ...
         double scale = calculateNewScale(length, min, max);
         return new Range(min, max, newTickUnit, scale);
     }
@@ -132,7 +134,9 @@ public class LongAxis extends ValueAxis<Long> {
         for (long tickValue = r.getMin(); tickValue < r.getMax(); tickValue += r.getTickUnit()) {
             tickValues.add(tickValue);
         }
-        tickValues.add(r.getMax());
+        if (!tickValues.contains(r.getMax())) {
+            tickValues.add(r.getMax());
+        }
         return tickValues;
     }
 

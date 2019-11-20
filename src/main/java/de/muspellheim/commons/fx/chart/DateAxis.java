@@ -70,6 +70,16 @@ public class DateAxis extends Axis<LocalDate> {
     private LocalDate dataMinValue;
     private LocalDate dataMaxValue;
 
+    public DateAxis() {
+        this(Clock.systemDefaultZone());
+    }
+
+    public DateAxis(Clock clock) {
+        LocalDate now = LocalDate.now(clock);
+        setLowerBound(now.minusDays(7));
+        setUpperBound(now);
+    }
+
     public final LocalDate getLowerBound() {
         return lowerBound.get();
     }
@@ -133,20 +143,24 @@ public class DateAxis extends Axis<LocalDate> {
     @Override
     protected Object autoRange(double length) {
         if (isAutoRanging()) {
-            double labelSize = getTickLabelFont().getSize() * 12;
-            double min = toNumericValue(dataMinValue);
-            double max = toNumericValue(dataMaxValue);
-            int numOfTickMarks = (int) Math.floor(length / labelSize);
-            double range = max - min;
-            // TODO tick unit: days, months, years, ...
-            int newTickUnit = (int) Math.max(1, range / numOfTickMarks);
-            double newScale = calculateNewScale(length, min, max);
-            return new Range(toRealValue(min), toRealValue(max), Period.ofDays(newTickUnit), newScale);
+            double labelSize = getTickLabelFont().getSize() * 10;
+            return autoRange(dataMinValue, dataMaxValue, length, labelSize);
         } else {
             currentLowerBound.set(getLowerBound());
             setScale(calculateNewScale(length, toNumericValue(getLowerBound()), toNumericValue(getUpperBound())));
             return getRange();
         }
+    }
+
+    protected Object autoRange(LocalDate minValue, LocalDate maxValue, double length, double labelSize) {
+        double min = toNumericValue(minValue);
+        double max = toNumericValue(maxValue);
+        int numOfTickMarks = (int) Math.max(2, Math.floor(length / labelSize));
+        double range = max - min;
+        // TODO tick unit: days, months, years, ...
+        int newTickUnit = (int) Math.max(1, range / numOfTickMarks);
+        double newScale = calculateNewScale(length, min, max);
+        return new Range(toRealValue(min), toRealValue(max), Period.ofDays(newTickUnit), newScale);
     }
 
     @Override
