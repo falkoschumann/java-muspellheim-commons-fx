@@ -47,18 +47,18 @@
         <HBox>
             <LineChart fx:id="chart1" title="Demo 1" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
                 <xAxis>
-                    <DateAxis fx:id="dateAxis1" label="Date axis"/>
+                    <DateAxis label="Date axis"/>
                 </xAxis>
                 <yAxis>
-                    <LongAxis fx:id="longAxis1" label="Long axis with integer values" forceZeroInRange="false"/>
+                    <LongAxis label="Long axis with integer values" forceZeroInRange="false"/>
                 </yAxis>
             </LineChart>
             <LineChart fx:id="chart2" title="Demo 2" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
                 <xAxis>
-                    <DateTimeAxis fx:id="dateTimeAxis2" label="Date time axis"/>
+                    <DateTimeAxis label="Date time axis"/>
                 </xAxis>
                 <yAxis>
-                    <LongAxis fx:id="longAxis2" label="Long axis with long values"/>
+                    <LongAxis label="Long axis with long values"/>
                 </yAxis>
             </LineChart>
         </HBox>

@@ -7,7 +7,6 @@ package de.muspellheim.commons.fx.demo;
 
 import java.time.*;
 import java.time.format.*;
-import java.util.*;
 import java.util.regex.*;
 
 import de.muspellheim.commons.fx.chart.*;
@@ -36,12 +35,8 @@ public class DemoViewController {
     private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>(this, "dateTimes");
 
     @FXML private XYChart<LocalDate, Integer> chart1;
-    @FXML private DateAxis dateAxis1;
-    @FXML private LongAxis longAxis1;
 
     @FXML private XYChart<LocalDateTime, Long> chart2;
-    @FXML private DateTimeAxis dateTimeAxis2;
-    @FXML private LongAxis longAxis2;
 
     @FXML
     void initialize() {
@@ -59,16 +54,6 @@ public class DemoViewController {
             Validator.createEmptyValidator("Number must be specified"),
             Validator.createRegexValidator("Not a number", Pattern.compile("\\d*"), Severity.ERROR)
         ));
-
-        /*
-        dateAxis.setLowerBound(LocalDate.of(2019, 10, 22));
-        dateAxis.setUpperBound(LocalDate.of(2019, 11, 15));
-        dateAxis.setTickUnit(Period.ofDays(7));
-        dateTimeAxis.setAutoRanging(false);
-        dateTimeAxis.setLowerBound(LocalDateTime.of(2019, 11, 16, 23, 0));
-        dateTimeAxis.setUpperBound(LocalDateTime.of(2019, 11, 17, 8, 0));
-        dateTimeAxis.setTickUnit(Duration.ofHours(2));
-        */
 
         //
         // Bind
@@ -118,13 +103,14 @@ public class DemoViewController {
     }
 
     private void applyChartData1() {
-        List<XYChart.Data<LocalDate, Integer>> data = new ArrayList<>();
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 41));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 23));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 65));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 42));
-        data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 78));
-        chart1.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
+        XYChart.Series<LocalDate, Integer> series1 = new XYChart.Series<>();
+        series1.setName("Series 1");
+        series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 41));
+        series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 23));
+        series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 65));
+        series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 42));
+        series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 78));
+        chart1.getData().add(series1);
     }
 
     private void updateChartTooltips1() {
@@ -138,13 +124,14 @@ public class DemoViewController {
     }
 
     private void applyChartData2() {
-        List<XYChart.Data<LocalDateTime, Long>> data = new ArrayList<>();
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4L));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2L));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6L));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4L));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7L));
-        chart2.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
+        XYChart.Series<LocalDateTime, Long> seriesA = new XYChart.Series<>();
+        seriesA.setName("Series A");
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4L));
+        seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7L));
+        chart2.getData().add(seriesA);
     }
 
     private void updateChartTooltips2() {
