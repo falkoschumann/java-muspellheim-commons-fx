@@ -132,6 +132,7 @@ public class DemoViewController {
     private void updateChartTooltips() {
         chart.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
             new DataTooltipBuilder()
+                .applyTitle("Hello Data")
                 .addData("Date value:", d.getXValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
                 .addData("Integer value:", d.getYValue())
                 .install(d.getNode());
