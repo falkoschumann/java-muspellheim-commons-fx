@@ -39,23 +39,38 @@ class LongAxisTests {
     }
 
     @Test
-    void autoRangedTickValues() {
+    void autoRanged() {
         // When
         Object range = fixture.autoRange(23, 78, 250, 22);
         fixture.setRange(range, false);
         List<Long> tickValues = fixture.calculateTickValues(250, range);
-        List<Long> minorTickMarks = fixture.calculateMinorTickMarks();
 
         // Then
-        // TODO Normalized tick values
-        //assertEquals(Arrays.asList(0L, 20, 40, 60, 80), tickValues, "tickValues");
-        assertEquals(Arrays.asList(0L, 15L, 30L, 45L, 60L, 75L, 78L), tickValues, "tick values");
-        assertEquals(Arrays.asList(
-            3L, 6L, 9L, 12L,
-            18L, 21L, 24L, 27L,
-            33L, 36L, 39L, 42L,
-            48L, 51L, 54L, 57L,
-            63L, 66L, 69L, 72L), minorTickMarks, "minor tick marks");
+        assertEquals(Arrays.asList(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L), tickValues, "tickValues");
+    }
+
+    @Test
+    void DoNotForceZeroInRange() {
+        // When
+        fixture.setForceZeroInRange(false);
+        Object range = fixture.autoRange(23, 78, 250, 22);
+        fixture.setRange(range, false);
+        List<Long> tickValues = fixture.calculateTickValues(250, range);
+
+        // Then
+        assertEquals(Arrays.asList(20L, 30L, 40L, 50L, 60L, 70L, 80L), tickValues, "tickValues");
+    }
+
+    @Test
+    void numberOfTicksMustBeReduced() {
+        // When
+        fixture.setForceZeroInRange(false);
+        Object range = fixture.autoRange(12, 109, 2048, 22);
+        fixture.setRange(range, false);
+        List<Long> tickValues = fixture.calculateTickValues(250, range);
+
+        // Then
+        assertEquals(Arrays.asList(10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L), tickValues, "tickValues");
     }
 
 }

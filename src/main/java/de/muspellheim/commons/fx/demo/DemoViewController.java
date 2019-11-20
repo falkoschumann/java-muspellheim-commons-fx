@@ -63,11 +63,11 @@ public class DemoViewController {
 
         validButton.disableProperty().bind(validationSupport.invalidProperty());
 
-        chart1.dataProperty().addListener(o -> updateChartTooltips1());
         applyChartData1();
+        updateChartTooltips1();
 
-        chart2.dataProperty().addListener(o -> updateChartTooltips2());
         applyChartData2();
+        updateChartTooltips2();
     }
 
     public final ObservableList<DateTimes> getDateTimes() {
