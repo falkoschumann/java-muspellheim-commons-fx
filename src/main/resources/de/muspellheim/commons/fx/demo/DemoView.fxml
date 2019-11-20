@@ -5,12 +5,12 @@
   ~ Copyright (c) 2019 Falko Schumann
   -->
 
+<?import de.muspellheim.commons.fx.chart.*?>
+<?import de.muspellheim.commons.fx.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
-<?import de.muspellheim.commons.fx.chart.*?>
-<?import de.muspellheim.commons.fx.control.*?>
 <VBox xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="de.muspellheim.commons.fx.demo.DemoViewController" stylesheets="@../style.css"
       prefWidth="800.0" prefHeight="600.0">
@@ -44,15 +44,24 @@
         </TableView>
     </TitledPane>
     <TitledPane text="Charts">
-        <LineChart fx:id="chart" title="Axis Demo" legendVisible="false" minHeight="200" prefHeight="800">
-            <xAxis>
-                <!--<DateAxis fx:id="dateAxis" label="Date axis"/>-->
-                <DateTimeAxis fx:id="dateTimeAxis" label="Date time axis"/>
-            </xAxis>
-            <yAxis>
-                <LongAxis fx:id="longAxis" label="Long axis"/>
-            </yAxis>
-        </LineChart>
+        <HBox>
+            <LineChart fx:id="chart1" title="Demo 1" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
+                <xAxis>
+                    <DateAxis fx:id="dateAxis1" label="Date axis"/>
+                </xAxis>
+                <yAxis>
+                    <LongAxis fx:id="longAxis1" label="Long axis with integer values" forceZeroInRange="false"/>
+                </yAxis>
+            </LineChart>
+            <LineChart fx:id="chart2" title="Demo 2" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
+                <xAxis>
+                    <DateTimeAxis fx:id="dateTimeAxis2" label="Date time axis"/>
+                </xAxis>
+                <yAxis>
+                    <LongAxis fx:id="longAxis2" label="Long axis with long values"/>
+                </yAxis>
+            </LineChart>
+        </HBox>
     </TitledPane>
     <TitledPane text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">

@@ -35,10 +35,13 @@ public class DemoViewController {
 
     private final ReadOnlyListWrapper<DateTimes> dateTimes = new ReadOnlyListWrapper<>(this, "dateTimes");
 
-    @FXML private XYChart<LocalDateTime, Integer> chart;
-    @FXML private DateTimeAxis dateTimeAxis;
-    @FXML private DateAxis dateAxis;
-    @FXML private LongAxis longAxis;
+    @FXML private XYChart<LocalDate, Integer> chart1;
+    @FXML private DateAxis dateAxis1;
+    @FXML private LongAxis longAxis1;
+
+    @FXML private XYChart<LocalDateTime, Long> chart2;
+    @FXML private DateTimeAxis dateTimeAxis2;
+    @FXML private LongAxis longAxis2;
 
     @FXML
     void initialize() {
@@ -75,8 +78,11 @@ public class DemoViewController {
 
         validButton.disableProperty().bind(validationSupport.invalidProperty());
 
-        chart.dataProperty().addListener(o -> updateChartTooltips());
-        applyChartData();
+        chart1.dataProperty().addListener(o -> updateChartTooltips1());
+        applyChartData1();
+
+        chart2.dataProperty().addListener(o -> updateChartTooltips2());
+        applyChartData2();
     }
 
     public final ObservableList<DateTimes> getDateTimes() {
@@ -111,30 +117,42 @@ public class DemoViewController {
         dialog.showAndWait();
     }
 
-    private void applyChartData() {
-        /*
+    private void applyChartData1() {
         List<XYChart.Data<LocalDate, Integer>> data = new ArrayList<>();
         data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 20), 41));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 10, 24), 23));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 5), 65));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 42));
         data.add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 78));
-        */
-        List<XYChart.Data<LocalDateTime, Integer>> data = new ArrayList<>();
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4));
-        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7));
-        chart.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
+        chart1.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
     }
 
-    private void updateChartTooltips() {
-        chart.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
+    private void updateChartTooltips1() {
+        chart1.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
             new DataTooltipBuilder()
                 .applyTitle("Hello Data")
-                .addData("Date value:", d.getXValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
-                .addData("Integer value:", d.getYValue())
+                .addData("Date:", d.getXValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+                .addData("Integer:", d.getYValue())
+                .install(d.getNode());
+        });
+    }
+
+    private void applyChartData2() {
+        List<XYChart.Data<LocalDateTime, Long>> data = new ArrayList<>();
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 4L));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 2L));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 6L));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 4L));
+        data.add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 7L));
+        chart2.setData(FXCollections.singletonObservableList(new XYChart.Series<>(FXCollections.observableList(data))));
+    }
+
+    private void updateChartTooltips2() {
+        chart2.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
+            new DataTooltipBuilder()
+                .applyTitle("Hello Data")
+                .addData("Date time:", d.getXValue().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
+                .addData("Long:", d.getYValue())
                 .install(d.getNode());
         });
     }
