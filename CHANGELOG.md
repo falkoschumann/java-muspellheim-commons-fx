@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.6.0] - 2019-11-21
+
+### Added
+
+*   Simple pareto chart based on bar chart. 
+
 ## [v4.5.0] - 2019-11-20
 
 ### Added
@@ -136,7 +142,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Stage controller based on view controller.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.5.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.6.0...HEAD
+[v4.6.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.5.0...v4.6.0
 [v4.5.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.4.0...v4.5.0
 [v4.4.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.3.0...v4.4.0
 [v4.3.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.2.1...v4.3.0

@@ -22,7 +22,7 @@
         </HBox>
     </TitledPane>
     <TitledPane text="Date and date time table cell">
-        <TableView items="${controller.dateTimes}">
+        <TableView items="${controller.dateTimes}" minHeight="100">
             <columns>
                 <TableColumn text="Date">
                     <cellFactory>
@@ -43,7 +43,7 @@
             </columns>
         </TableView>
     </TitledPane>
-    <TitledPane text="Charts">
+    <TitledPane text="Chart Axises">
         <HBox>
             <LineChart fx:id="chart1" title="Demo 1" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
                 <xAxis>
@@ -62,6 +62,9 @@
                 </yAxis>
             </LineChart>
         </HBox>
+    </TitledPane>
+    <TitledPane text="Pareto Chart">
+        <SimpleParetoChart fx:id="paretoChart" title="Cause of engine overheating" legendVisible="false" minHeight="200" prefHeight="800"/>
     </TitledPane>
     <TitledPane text="Dialogs">
         <HBox alignment="CENTER_LEFT" spacing="10.0">

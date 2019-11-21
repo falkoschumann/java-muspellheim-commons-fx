@@ -38,6 +38,8 @@ public class DemoViewController {
 
     @FXML private XYChart<LocalDateTime, Long> chart2;
 
+    @FXML private SimpleParetoChart paretoChart;
+
     @FXML
     void initialize() {
         //
@@ -64,10 +66,8 @@ public class DemoViewController {
         validButton.disableProperty().bind(validationSupport.invalidProperty());
 
         applyChartData1();
-        updateChartTooltips1();
-
         applyChartData2();
-        updateChartTooltips2();
+        applyParetoChartData();
     }
 
     public final ObservableList<DateTimes> getDateTimes() {
@@ -111,9 +111,6 @@ public class DemoViewController {
         series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 11, 12), 42));
         series1.getData().add(new XYChart.Data<>(LocalDate.of(2019, 11, 17), 78));
         chart1.getData().add(series1);
-    }
-
-    private void updateChartTooltips1() {
         chart1.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> {
             new DataTooltipBuilder()
                 .applyTitle("Hello Data")
@@ -132,13 +129,26 @@ public class DemoViewController {
         seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 42L));
         seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 78L));
         chart2.getData().add(seriesA);
-    }
-
-    private void updateChartTooltips2() {
         chart2.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> new DataTooltipBuilder()
             .applyTitle("Hello Data")
             .addData("Date time:", d.getXValue().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
             .addData("Long:", d.getYValue())
+            .install(d.getNode()));
+    }
+
+    private void applyParetoChartData() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Causes");
+        series.getData().add(new XYChart.Data<>("Damaged radiator core", 31 / 71.0 * 100.0));
+        series.getData().add(new XYChart.Data<>("Faulty fans", 20 / 71.0 * 100.0));
+        series.getData().add(new XYChart.Data<>("Faulty thermostat", 8 / 71.0 * 100.0));
+        series.getData().add(new XYChart.Data<>("Loose fan belt", 5 / 71.0 * 100.0));
+        series.getData().add(new XYChart.Data<>("Damaged fins", 4 / 71.0 * 100.0));
+        series.getData().add(new XYChart.Data<>("Coolant leakage", 3 / 71.0 * 100.0));
+        paretoChart.getData().add(series);
+        paretoChart.getData().stream().flatMap(s -> s.getData().stream()).forEach(d -> new DataTooltipBuilder()
+            .addData("Cause:", d.getXValue())
+            .addData("Frequency:", d.getYValue())
             .install(d.getNode()));
     }
 
