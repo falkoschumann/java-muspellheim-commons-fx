@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   Synchronously testing mode for dispatch queue.
 ## [v4.6.0] - 2019-11-21
 
 ### Added
