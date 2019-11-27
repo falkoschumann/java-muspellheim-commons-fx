@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 *   Synchronously testing mode for dispatch queue.
+*   Scalable number axis.  
+
 ## [v4.6.0] - 2019-11-21
 
 ### Added
