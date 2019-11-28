@@ -7,12 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.8.0] - 2019-11-28
+
+### Changed
+
+*   Scalable axis can zoom and move a horizontal or vertical value axis. 
+
 ## [v4.7.0] - 2019-11-28
 
 ### Added
 
 *   Synchronously testing mode for dispatch queue.
-*   Scalable number axis.  
+*   Scalable horizontal number axis.  
 
 ## [v4.6.0] - 2019-11-21
 
@@ -149,7 +155,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Stage controller based on view controller.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.7.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.8.0...HEAD
+[v4.8.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.7.0...v4.8.0
 [v4.7.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.6.0...v4.7.0
 [v4.6.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.5.0...v4.6.0
 [v4.5.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.4.0...v4.5.0
