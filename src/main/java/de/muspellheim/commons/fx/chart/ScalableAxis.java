@@ -34,22 +34,34 @@ public final class ScalableAxis {
   }
 
   private static <T extends Number> void installZoomable(XYChart<?, ?> chart, ValueAxis<T> axis) {
+    axis.addEventHandler(
+        ScrollEvent.SCROLL,
+        e -> {
+          e.consume();
+          handleZoom(e, chart, axis);
+        });
     chart.addEventHandler(
         ScrollEvent.SCROLL,
         e -> {
-          Node chartPlotArea = chart.lookup(".chart-plot-background");
-          double displayPosition =
-              axis.getSide().isHorizontal()
-                  ? e.getX() - chartPlotArea.getLayoutX() - chart.getInsets().getLeft()
-                  : e.getY() - chartPlotArea.getLayoutY() - chart.getInsets().getTop();
-          double value = axis.getValueForDisplay(displayPosition).doubleValue();
-          double range = axis.getUpperBound() - axis.getLowerBound();
-          double relativeToOffset = (value - axis.getLowerBound()) / range;
-          double factor = e.getDeltaY() < 0 ? -1 : 1;
-          double delta = range * 0.1 * factor;
-          axis.setLowerBound(axis.getLowerBound() + delta * relativeToOffset);
-          axis.setUpperBound(axis.getUpperBound() - delta * (1 - relativeToOffset));
+          e.consume();
+          handleZoom(e, chart, axis);
         });
+  }
+
+  private static <T extends Number> void handleZoom(
+      ScrollEvent e, XYChart<?, ?> chart, ValueAxis<T> axis) {
+    Node chartPlotArea = chart.lookup(".chart-plot-background");
+    double displayPosition =
+        axis.getSide().isHorizontal()
+            ? e.getX() - chartPlotArea.getLayoutX() - chart.getInsets().getLeft()
+            : e.getY() - chartPlotArea.getLayoutY() - chart.getInsets().getTop();
+    double value = axis.getValueForDisplay(displayPosition).doubleValue();
+    double range = axis.getUpperBound() - axis.getLowerBound();
+    double relativeToOffset = (value - axis.getLowerBound()) / range;
+    double factor = e.getDeltaY() < 0 ? -1 : 1;
+    double delta = range * 0.1 * factor;
+    axis.setLowerBound(axis.getLowerBound() + delta * relativeToOffset);
+    axis.setUpperBound(axis.getUpperBound() - delta * (1 - relativeToOffset));
   }
 
   private static <T extends Number> void installMoveable(XYChart<?, ?> chart, ValueAxis<T> axis) {

@@ -55,10 +55,10 @@
             </LineChart>
             <LineChart fx:id="chart2" title="Demo 2" legendVisible="false" minHeight="200" prefHeight="800" HBox.hgrow="ALWAYS">
                 <xAxis>
-                    <DateTimeAxis label="Date time axis"/>
+                    <NumberAxis fx:id="scalableX2" label="Scalable axis" autoRanging="false"/>
                 </xAxis>
                 <yAxis>
-                    <LongAxis label="Long axis with long values"/>
+                    <NumberAxis fx:id="scalableY2" label="Scalable axis" autoRanging="false"/>
                 </yAxis>
             </LineChart>
         </HBox>

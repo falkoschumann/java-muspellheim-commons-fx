@@ -6,6 +6,7 @@
 package de.muspellheim.commons.fx.demo;
 
 import de.muspellheim.commons.fx.chart.DataTooltipBuilder;
+import de.muspellheim.commons.fx.chart.ScalableAxis;
 import de.muspellheim.commons.fx.chart.SimpleParetoChart;
 import de.muspellheim.commons.fx.control.DateIntervalPicker;
 import de.muspellheim.commons.fx.dialog.AboutDialog;
@@ -24,6 +25,7 @@ import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,7 +48,9 @@ public class DemoViewController {
 
   @FXML private XYChart<LocalDate, Integer> chart1;
 
-  @FXML private XYChart<LocalDateTime, Long> chart2;
+  @FXML private XYChart<Double, Double> chart2;
+  @FXML private NumberAxis scalableX2;
+  @FXML private NumberAxis scalableY2;
 
   @FXML private SimpleParetoChart paretoChart;
 
@@ -58,6 +62,8 @@ public class DemoViewController {
 
     dateIntervalPicker.setValue(LocalDateInterval.lastDays(6));
 
+    ScalableAxis.install(chart2, scalableX2);
+    ScalableAxis.install(chart2, scalableY2);
     setDateTimes(FXCollections.observableArrayList(new DateTimes(LocalDateTime.now())));
 
     validationSupport.registerValidator(
@@ -141,26 +147,14 @@ public class DemoViewController {
   }
 
   private void applyChartData2() {
-    XYChart.Series<LocalDateTime, Long> seriesA = new XYChart.Series<>();
+    XYChart.Series<Double, Double> seriesA = new XYChart.Series<>();
     seriesA.setName("Series A");
-    seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 21, 34), 41L));
-    seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 16, 23, 45), 23L));
-    seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 3, 12), 65L));
-    seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 6, 30), 42L));
-    seriesA.getData().add(new XYChart.Data<>(LocalDateTime.of(2019, 11, 17, 10, 1), 78L));
+    seriesA.getData().add(new XYChart.Data<>(0.2, 41.0));
+    seriesA.getData().add(new XYChart.Data<>(0.6, 23.0));
+    seriesA.getData().add(new XYChart.Data<>(0.5, 65.0));
+    seriesA.getData().add(new XYChart.Data<>(0.7, 42.0));
+    seriesA.getData().add(new XYChart.Data<>(0.4, 78.0));
     chart2.getData().add(seriesA);
-    chart2.getData().stream()
-        .flatMap(s -> s.getData().stream())
-        .forEach(
-            d ->
-                new DataTooltipBuilder()
-                    .applyTitle("Hello Data")
-                    .addData(
-                        "Date time:",
-                        d.getXValue()
-                            .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)))
-                    .addData("Long:", d.getYValue())
-                    .install(d.getNode()));
   }
 
   private void applyParetoChartData() {
