@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.9.0] - 2019-12-03
+
+### Change
+
+*   Scroll 2 axis separately.
+
 ## [v4.8.0] - 2019-11-28
 
 ### Changed
