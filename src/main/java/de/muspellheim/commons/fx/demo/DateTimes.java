@@ -5,18 +5,18 @@
 
 package de.muspellheim.commons.fx.demo;
 
-import java.time.*;
-
-import lombok.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import lombok.NonNull;
+import lombok.Value;
 
 @Value
 @SuppressWarnings("checkstyle:VisibilityModifier")
 public class DateTimes {
 
-    @NonNull LocalDateTime dateTime;
+  @NonNull LocalDateTime dateTime;
 
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
+  public LocalDate getDate() {
+    return dateTime.toLocalDate();
+  }
 }

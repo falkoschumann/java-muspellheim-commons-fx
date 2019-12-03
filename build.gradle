@@ -18,14 +18,22 @@ buildscript {
 }
 
 plugins {
-    id 'java-library'
-    id 'checkstyle'
-    id 'jacoco'
-    id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.8.4'
-    id 'com.github.spotbugs' version '2.0.1'
-    id 'io.freefair.lombok' version '4.1.4'
-    id 'org.sonarqube' version '2.8'
+  // Compile
+  id 'java-library'
+  id 'io.freefair.lombok' version '4.1.4'
+
+  // Test
+  id 'jacoco'
+
+  // Check
+  id 'com.diffplug.gradle.spotless' version '3.26.1'
+  id 'checkstyle'
+  id 'com.github.spotbugs' version '2.0.1'
+  id 'org.sonarqube' version '2.8'
+
+  // Deploy
+  id 'maven-publish'
+  id 'com.jfrog.bintray' version '1.8.4'
 }
 
 if (System.getProperty('java.version').startsWith('1.8')) {
@@ -57,16 +65,18 @@ version = '4.8.0'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
+compileJava.options.compilerArgs += ["-Xlint:all", "-Xlint:-serial"]
 compileTestJava.options.encoding = 'UTF-8'
+compileTestJava.options.compilerArgs += ["-Xlint:all", "-Xlint:-serial"]
+
+java {
+  registerFeature('junitSupport') {
+    usingSourceSet(sourceSets.main)
+  }
+}
 
 repositories {
     jcenter()
-}
-
-java {
-    registerFeature('junitSupport') {
-        usingSourceSet(sourceSets.main)
-    }
 }
 
 dependencies {
@@ -124,11 +134,12 @@ task runDemo(type: JavaExec) {
 }
 
 // ###################################################################
-// Checkstyle
+// Lombok
 // ###################################################################
 
-checkstyle {
-    toolVersion '8.24'
+lombok {
+  config['lombok.nonNull.exceptionType'] = 'Jdk'
+  config['lombok.anyConstructor.addConstructorProperties'] = 'true'
 }
 
 // ###################################################################
@@ -163,6 +174,90 @@ jacocoTestCoverageVerification {
 check.dependsOn += [jacocoTestCoverageVerification, jacocoTestReport]
 
 // ###################################################################
+// Spotless
+// ###################################################################
+
+spotless {
+  java {
+    googleJavaFormat()
+    licenseHeaderFile 'config/spotless/license.header'
+  }
+}
+
+// ###################################################################
+// Checkstyle
+// ###################################################################
+
+checkstyle {
+  maxWarnings = 0
+}
+
+// ###################################################################
+// SpotBugs
+// ###################################################################
+
+spotbugs {
+  excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+  reports {
+    xml.enabled = false
+    html.enabled = false
+    text.enabled = true
+  }
+}
+
+task printSpotBugsReportMain() {
+  doLast {
+    printSpotBugsReport('main')
+  }
+}
+spotbugsMain.finalizedBy printSpotBugsReportMain
+
+task printSpotBugsReportTest() {
+  doLast {
+    printSpotBugsReport('test')
+  }
+}
+spotbugsTest.finalizedBy printSpotBugsReportTest
+
+static def printSpotBugsReport(String sourceSet) {
+  def report = Paths.get("build/reports/spotbugs/${sourceSet}.text")
+  if (Files.exists(report)) {
+    def lines = Files.readAllLines(report)
+    lines.forEach { l -> println(l) }
+  }
+}
+
+// ###################################################################
+// Sonarqube
+// ###################################################################
+
+sonarqube {
+  properties {
+    property 'sonar.projectKey', 'falkoschumann_java-muspellheim-commons-fx'
+  }
+}
+
+// ###################################################################
+// Maven
+// ###################################################################
+
+publishing {
+  publications {
+    MuspellheimCommonsFXPublication(MavenPublication) {
+      from components.java
+      artifact sourcesJar
+      artifact javadocJar
+      groupId 'de.muspellheim'
+      artifactId project.name
+      version project.version
+    }
+  }
+}
+
+// ###################################################################
 // Bintray
 // ###################################################################
 
@@ -193,79 +288,5 @@ bintray {
             released = new Date()
             vcsTag = "v${project.version}"
         }
-    }
-}
-
-// ###################################################################
-// Maven
-// ###################################################################
-
-publishing {
-    publications {
-        MuspellheimCommonsFXPublication(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            groupId 'de.muspellheim'
-            artifactId project.name
-            version project.version
-        }
-    }
-}
-
-// ###################################################################
-// SpotBugs
-// ###################################################################
-
-spotbugs {
-    excludeFilter = file("$rootDir/config/spotbugs/excludeFilter.xml")
-}
-
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = false
-        text.enabled = true
-    }
-}
-
-task printSpotBugsReportMain() {
-    doLast {
-        printSpotBugsReport('main')
-    }
-}
-spotbugsMain.finalizedBy printSpotBugsReportMain
-
-task printSpotBugsReportTest() {
-    doLast {
-        printSpotBugsReport('test')
-    }
-}
-spotbugsTest.finalizedBy printSpotBugsReportTest
-
-static def printSpotBugsReport(String sourceSet) {
-    def report = Paths.get("build/reports/spotbugs/${sourceSet}.text")
-    if (Files.exists(report)) {
-        def lines = Files.readAllLines(report)
-        lines.forEach { l -> println(l) }
-    }
-}
-
-// ###################################################################
-// Lombok
-// ###################################################################
-
-lombok {
-    config['lombok.nonNull.exceptionType'] = 'Jdk'
-    config['lombok.anyConstructor.addConstructorProperties'] = 'true'
-}
-
-// ###################################################################
-// Sonarqube
-// ###################################################################
-
-sonarqube {
-    properties {
-        property 'sonar.projectKey', 'falkoschumann_java-muspellheim-commons-fx'
     }
 }

@@ -5,27 +5,24 @@
 
 package de.muspellheim.commons.fx.demo;
 
-import javafx.application.*;
-import javafx.stage.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-/**
- * This demo app shows controls and dialogs from this library.
- */
+/** This demo app shows controls and dialogs from this library. */
 public class App extends Application {
 
-    /**
-     * Start the demo app.
-     *
-     * @param args no arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+  /**
+   * Start the demo app.
+   *
+   * @param args no arguments
+   */
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        DemoWindow window = new DemoWindow(primaryStage);
-        window.show();
-    }
-
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    DemoWindow window = new DemoWindow(primaryStage);
+    window.show();
+  }
 }

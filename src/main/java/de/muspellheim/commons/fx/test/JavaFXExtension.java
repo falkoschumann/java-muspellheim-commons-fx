@@ -5,15 +5,16 @@
 
 package de.muspellheim.commons.fx.test;
 
-import javafx.embed.swing.*;
-import org.junit.jupiter.api.extension.*;
+import javafx.embed.swing.JFXPanel;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * This JUnit 5 extension initialize the toolkit.
- * <p>
- * Use {@link javafx.application.Platform#runLater(Runnable)} to run specific
- * code in UI thread and synchronize UI thread with test thread like in this
- * example:
+ *
+ * <p>Use {@link javafx.application.Platform#runLater(Runnable)} to run specific code in UI thread
+ * and synchronize UI thread with test thread like in this example:
+ *
  * <pre>
  * Phaser dialogCreated = new Phaser(1);
  * AtomicReference&lt;AboutDialog&gt; dialog = new AtomicReference&lt;&gt;();
@@ -25,10 +26,8 @@ import org.junit.jupiter.api.extension.*;
  * </pre>
  */
 public class JavaFXExtension implements BeforeAllCallback {
-
-    @Override
-    public void beforeAll(ExtensionContext context) {
-        new JFXPanel();
-    }
-
+  @Override
+  public void beforeAll(ExtensionContext context) {
+    new JFXPanel();
+  }
 }

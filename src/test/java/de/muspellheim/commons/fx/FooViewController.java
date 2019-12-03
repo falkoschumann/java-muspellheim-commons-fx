@@ -5,25 +5,21 @@
 
 package de.muspellheim.commons.fx;
 
-import java.util.*;
-
-import javafx.fxml.*;
-import javafx.scene.control.*;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class FooViewController {
 
-    @FXML
-    private ResourceBundle resources;
+  @FXML private ResourceBundle resources;
 
-    @FXML
-    private Label label;
+  @FXML private Label label;
 
-    ResourceBundle getResources() {
-        return resources;
-    }
+  ResourceBundle getResources() {
+    return resources;
+  }
 
-    Label getLabel() {
-        return label;
-    }
-
+  Label getLabel() {
+    return label;
+  }
 }

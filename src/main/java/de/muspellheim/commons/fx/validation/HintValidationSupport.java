@@ -5,18 +5,13 @@
 
 package de.muspellheim.commons.fx.validation;
 
-import org.controlsfx.validation.*;
+import org.controlsfx.validation.ValidationSupport;
 
-/**
- * Validation support with validation decoration by a hint popup.
- */
+/** Validation support with validation decoration by a hint popup. */
 public class HintValidationSupport extends ValidationSupport {
 
-    /**
-     * Creates a hint validation support.
-     */
-    public HintValidationSupport() {
-        setValidationDecorator(new HintValidationDecoration());
-    }
-
+  /** Creates a hint validation support. */
+  public HintValidationSupport() {
+    setValidationDecorator(new HintValidationDecoration());
+  }
 }
