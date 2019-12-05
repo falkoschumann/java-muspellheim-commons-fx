@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v4.10.0] - 2019-12-05
+
+### Added
+
+*   Mouse drag move single axis, when both axes are scalable.
+
 ## [v4.9.0] - 2019-12-03
 
 ### Change
@@ -161,7 +167,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Stage controller based on view controller.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.9.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.10.0...HEAD
+[v4.10.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.9.0...v4.10.0
 [v4.9.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.8.0...v4.9.0
 [v4.8.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.7.0...v4.8.0
 [v4.7.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.6.0...v4.7.0

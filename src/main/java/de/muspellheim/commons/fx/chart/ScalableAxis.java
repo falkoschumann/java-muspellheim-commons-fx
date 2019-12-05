@@ -65,19 +65,27 @@ public final class ScalableAxis {
   }
 
   private static <T extends Number> void installMoveable(XYChart<?, ?> chart, ValueAxis<T> axis) {
+    installMoveable(chart, axis, axis);
+    installMoveable(chart, axis, chart);
+  }
+
+  private static <T extends Number> void installMoveable(
+      XYChart<?, ?> chart, ValueAxis<T> axis, Node node) {
     MoveData moveData = new MoveData();
-    chart.addEventHandler(
+    node.addEventHandler(
         MouseEvent.MOUSE_PRESSED,
         e -> {
+          e.consume();
           moveData.startLowerBound = axis.getLowerBound();
           moveData.startUpperBound = axis.getUpperBound();
           double value = axis.getSide().isHorizontal() ? e.getX() : e.getY();
           moveData.start = axis.getValueForDisplay(value).doubleValue();
           chart.setCursor(Cursor.CLOSED_HAND);
         });
-    chart.addEventHandler(
+    node.addEventHandler(
         MouseEvent.MOUSE_RELEASED,
         e -> {
+          e.consume();
           double value = axis.getSide().isHorizontal() ? e.getX() : e.getY();
           double end = axis.getValueForDisplay(value).doubleValue();
           double delta = end - moveData.start;
