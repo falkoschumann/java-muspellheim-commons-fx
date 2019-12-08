@@ -56,7 +56,7 @@ if (System.getProperty('java.version').startsWith('1.8')) {
     }
 }
 
-version = '4.10.0'
+version = '4.11.0'
 
 // ###################################################################
 // Java Library
@@ -82,7 +82,7 @@ repositories {
 dependencies {
     junitSupportImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 
-    api 'de.muspellheim:muspellheim-commons:2.2.0'
+    api 'de.muspellheim:muspellheim-commons:2.3.0'
     api 'org.controlsfx:controlsfx:8.40.15'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
