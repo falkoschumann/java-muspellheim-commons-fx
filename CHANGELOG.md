@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *   Simplify calls to `DispatchQueue`.
 
+### Fixed
+
+*   `ScalableAxis` scaled with wrong offset.
+
 ## [v4.10.0] - 2019-12-05
 
 ### Added

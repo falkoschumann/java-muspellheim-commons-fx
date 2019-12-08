@@ -53,8 +53,8 @@ public final class ScalableAxis {
     Node chartPlotArea = chart.lookup(".chart-plot-background");
     double displayPosition =
         axis.getSide().isHorizontal()
-            ? e.getX() - chartPlotArea.getLayoutX() - chart.getInsets().getLeft()
-            : e.getY() - chartPlotArea.getLayoutY() - chart.getInsets().getTop();
+            ? chartPlotArea.sceneToLocal(e.getSceneX(), e.getSceneX()).getX()
+            : chartPlotArea.sceneToLocal(e.getSceneY(), e.getSceneY()).getY();
     double value = axis.getValueForDisplay(displayPosition).doubleValue();
     double range = axis.getUpperBound() - axis.getLowerBound();
     double relativeToOffset = (value - axis.getLowerBound()) / range;
