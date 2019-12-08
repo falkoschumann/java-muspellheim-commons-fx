@@ -9,9 +9,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Window;
 
 /**
  * Build a tooltip for name/value pairs, useful for chart data points.
@@ -50,13 +54,48 @@ public class DataTooltipBuilder {
   }
 
   /**
-   * Install the tooltip to a node.
+   * Install the tooltip into a node.
    *
    * @param node a node
    */
   public void install(Node node) {
     Tooltip tooltip = createTooltip();
     Tooltip.install(node, tooltip);
+  }
+
+  /**
+   * Install the tooltip as hover into a node.
+   *
+   * @param node a node
+   */
+  public void installAsHover(Node node) {
+    Tooltip tooltip = createTooltip();
+    node.addEventHandler(
+        MouseEvent.MOUSE_ENTERED,
+        e -> {
+          Node hoveredNode = (Node) e.getSource();
+          Window owner = getWindow(hoveredNode);
+          final boolean treeVisible = isWindowHierarchyVisible(hoveredNode);
+          if (owner != null && treeVisible) {
+            tooltip.show(owner, e.getScreenX() + 10, e.getScreenY() + 7);
+          }
+        });
+    node.addEventHandler(MouseEvent.MOUSE_EXITED, e -> tooltip.hide());
+  }
+
+  private static Window getWindow(final Node node) {
+    final Scene scene = node == null ? null : node.getScene();
+    return scene == null ? null : scene.getWindow();
+  }
+
+  private static boolean isWindowHierarchyVisible(Node node) {
+    boolean treeVisible = node != null;
+    Parent parent = node == null ? null : node.getParent();
+    while (parent != null && treeVisible) {
+      treeVisible = parent.isVisible();
+      parent = parent.getParent();
+    }
+    return treeVisible;
   }
 
   private Tooltip createTooltip() {

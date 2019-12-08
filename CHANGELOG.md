@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Added
+
+*   `DataTooltipBuilder` can install tooltip as hover.
+
 ### Changed
 
 *   Simplify calls to `DispatchQueue`.
