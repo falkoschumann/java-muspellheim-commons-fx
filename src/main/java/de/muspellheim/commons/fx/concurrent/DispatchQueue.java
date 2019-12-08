@@ -36,12 +36,27 @@ public final class DispatchQueue {
     return testing;
   }
 
-  /** Activate testing mode of queue runs. */
+  /** Activate or deactivate testing mode of queue runs. */
+  public static void setTesting(boolean value) {
+    testing = value;
+  }
+
+  /**
+   * Activate testing mode of queue runs.
+   *
+   * @deprecated use {@link DispatchQueue#setTesting(boolean)}
+   */
+  @Deprecated
   public static void setTesting() {
     testing = true;
   }
 
-  /** Deactivate testing mode of queue runs. */
+  /**
+   * Deactivate testing mode of queue runs.
+   *
+   * @deprecated use {@link DispatchQueue#setTesting(boolean)}
+   */
+  @Deprecated
   public static void unsetTesting() {
     testing = false;
   }
@@ -50,25 +65,49 @@ public final class DispatchQueue {
    * Obtains executor for the JavaFX application thread.
    *
    * @return the application queue executor
+   * @deprecated use {@link DispatchQueue#application(Runnable)}
    */
+  @Deprecated
   public static Executor application() {
     return testing ? test : application;
+  }
+
+  /** Execute command in JavaFX application thread. */
+  public static void application(Runnable command) {
+    if (testing) {
+      test.execute(command);
+    } else {
+      application.execute(command);
+    }
   }
 
   /**
    * Obtains executor for the background thread.
    *
    * @return the background queue executor
+   * @deprecated use {@link DispatchQueue#background(Runnable)}
    */
+  @Deprecated
   public static Executor background() {
     return testing ? test : background;
+  }
+
+  /** Execute comman in background thread. */
+  public static void background(Runnable command) {
+    if (testing) {
+      test.execute(command);
+    } else {
+      background.execute(command);
+    }
   }
 
   /**
    * Replace the JavaFX application executor for testing.
    *
    * @param executor an alternative executor.
+   * @deprecated use {@link DispatchQueue#setTesting(boolean)}
    */
+  @Deprecated
   public static void setApplicationExecutor(Executor executor) {
     application = executor;
   }
@@ -77,7 +116,11 @@ public final class DispatchQueue {
 
     @Override
     public void execute(Runnable command) {
-      Platform.runLater(command);
+      if (Platform.isFxApplicationThread()) {
+        command.run();
+      } else {
+        Platform.runLater(command);
+      }
     }
   }
 

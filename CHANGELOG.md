@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+*   Simplify calls to `DispatchQueue`.
+
 ## [v4.10.0] - 2019-12-05
 
 ### Added
