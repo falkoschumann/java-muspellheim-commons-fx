@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v5.0.0] - 2019-12-19
+
+### Added
+
+*   `Hint` a specialized tooltip showing a hint for an node, like a text field.
+
+### Removed
+
+*   Dependency to ControlsFX.
+
 ## [v4.11.0] - 2019-12-08
 
 ### Added

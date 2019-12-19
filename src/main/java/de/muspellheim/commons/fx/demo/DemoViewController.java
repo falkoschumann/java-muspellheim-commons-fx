@@ -11,7 +11,8 @@ import de.muspellheim.commons.fx.chart.SimpleParetoChart;
 import de.muspellheim.commons.fx.control.DateIntervalPicker;
 import de.muspellheim.commons.fx.dialog.AboutDialog;
 import de.muspellheim.commons.fx.dialog.ExceptionDialog;
-import de.muspellheim.commons.fx.validation.HintValidationSupport;
+import de.muspellheim.commons.fx.validation.Hint;
+import de.muspellheim.commons.fx.validation.Severity;
 import de.muspellheim.commons.time.LocalDateInterval;
 import de.muspellheim.commons.util.About;
 import de.muspellheim.commons.util.Version;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
@@ -31,8 +33,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.Validator;
 
 public class DemoViewController {
 
@@ -41,7 +41,6 @@ public class DemoViewController {
 
   @FXML private TextField validatedText;
   @FXML private Button validButton;
-  private final HintValidationSupport validationSupport = new HintValidationSupport();
 
   private final ReadOnlyListWrapper<DateTimes> dateTimes =
       new ReadOnlyListWrapper<>(this, "dateTimes");
@@ -66,12 +65,24 @@ public class DemoViewController {
     ScalableAxis.install(chart2, scalableY2);
     setDateTimes(FXCollections.observableArrayList(new DateTimes(LocalDateTime.now())));
 
-    validationSupport.registerValidator(
-        validatedText,
-        Validator.combine(
-            Validator.createEmptyValidator("Number must be specified"),
-            Validator.createRegexValidator(
-                "Not a number", Pattern.compile("\\d*"), Severity.ERROR)));
+    Hint hint = new Hint(validatedText);
+    Consumer<String> validator =
+        value -> {
+          if (value.isEmpty()) {
+            hint.setText("Number must be specified");
+            hint.setSeverity(Severity.ERROR);
+          } else if (!Pattern.matches("\\d*", value)) {
+            hint.setText("Not a number");
+            hint.setSeverity(Severity.ERROR);
+          } else {
+            hint.setText("");
+            hint.setSeverity(Severity.OK);
+          }
+        };
+    validatedText
+        .textProperty()
+        .addListener((observable, oldValue, newValue) -> validator.accept(newValue));
+    validator.accept(validatedText.textProperty().get());
 
     //
     // Bind
@@ -79,7 +90,7 @@ public class DemoViewController {
 
     dateIntervalPickerValue.textProperty().bind(dateIntervalPicker.valueProperty().asString());
 
-    validButton.disableProperty().bind(validationSupport.invalidProperty());
+    validButton.disableProperty().bind(hint.textProperty().isNotEmpty());
 
     applyChartData1();
     applyChartData2();
