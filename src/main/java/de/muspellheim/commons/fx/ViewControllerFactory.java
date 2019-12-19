@@ -59,7 +59,7 @@ public class ViewControllerFactory<V extends Node, C> {
    * @param <C> the type of loaded controller
    * @return the factory for loaded view controller
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public static <V extends Node, C> ViewControllerFactory<V, C> load(
       @NonNull Class<C> controllerType) {
     try {

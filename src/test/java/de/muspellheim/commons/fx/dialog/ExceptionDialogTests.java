@@ -27,15 +27,16 @@ class ExceptionDialogTests {
 
     // When
     Phaser dialogCreated = new Phaser(1);
-    AtomicReference<CustomExceptionDialog> dialog = new AtomicReference<>();
+    AtomicReference<ExceptionDialog> dialog = new AtomicReference<>();
     Platform.runLater(
         () -> {
-          dialog.set(new CustomExceptionDialog(throwable));
+          dialog.set(new ExceptionDialog(throwable));
           dialogCreated.arrive();
         });
     dialogCreated.awaitAdvanceInterruptibly(0, 2, TimeUnit.SECONDS);
 
     // Then
     assertEquals("Illegal State Exception", dialog.get().getHeaderText(), "header text");
+    assertEquals("Lorem ipsum", dialog.get().getContentText(), "content text");
   }
 }

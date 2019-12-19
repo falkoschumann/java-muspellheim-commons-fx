@@ -10,7 +10,7 @@ import de.muspellheim.commons.fx.chart.ScalableAxis;
 import de.muspellheim.commons.fx.chart.SimpleParetoChart;
 import de.muspellheim.commons.fx.control.DateIntervalPicker;
 import de.muspellheim.commons.fx.dialog.AboutDialog;
-import de.muspellheim.commons.fx.dialog.CustomExceptionDialog;
+import de.muspellheim.commons.fx.dialog.ExceptionDialog;
 import de.muspellheim.commons.fx.validation.HintValidationSupport;
 import de.muspellheim.commons.time.LocalDateInterval;
 import de.muspellheim.commons.util.About;
@@ -119,7 +119,7 @@ public class DemoViewController {
                 + " labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                 + " accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea"
                 + " takimata sanctus est Lorem ipsum dolor sit amet.");
-    CustomExceptionDialog dialog = new CustomExceptionDialog(exception);
+    ExceptionDialog dialog = new ExceptionDialog(exception);
     dialog.showAndWait();
   }
 
