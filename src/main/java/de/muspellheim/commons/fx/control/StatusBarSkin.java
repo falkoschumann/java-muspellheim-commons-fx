@@ -57,7 +57,10 @@ class StatusBarSkin extends SkinBase<StatusBar> {
     //
 
     leftItems.managedProperty().bind(Bindings.isNotEmpty(getSkinnable().getLeftItems()));
-    getSkinnable().getLeftItems().addListener((Observable o) -> leftItems.getChildren().setAll(getSkinnable().getLeftItems()));
+    getSkinnable()
+        .getLeftItems()
+        .addListener(
+            (Observable o) -> leftItems.getChildren().setAll(getSkinnable().getLeftItems()));
 
     text.textProperty().bind(getSkinnable().textProperty());
     text.styleProperty().bind(getSkinnable().styleProperty());
@@ -67,7 +70,9 @@ class StatusBarSkin extends SkinBase<StatusBar> {
     progress.visibleProperty().bind(notZeroProgress);
 
     rightItems.managedProperty().bind(Bindings.isNotEmpty(getSkinnable().getRightItems()));
-    getSkinnable().getRightItems().addListener((Observable o) -> rightItems.getChildren().setAll(getSkinnable().getRightItems()));
+    getSkinnable()
+        .getRightItems()
+        .addListener(
+            (Observable o) -> rightItems.getChildren().setAll(getSkinnable().getRightItems()));
   }
-
 }

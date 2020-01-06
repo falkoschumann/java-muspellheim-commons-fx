@@ -12,8 +12,8 @@ import javafx.scene.control.*;
 
 /**
  * A status bar with a text and progress indicator.
- * <p>
- * Additional controls can be added left and right optionally.
+ *
+ * <p>Additional controls can be added left and right optionally.
  */
 public class StatusBar extends Control {
 
@@ -22,9 +22,7 @@ public class StatusBar extends Control {
   private final ObservableList<Node> leftItems = FXCollections.observableArrayList();
   private final ObservableList<Node> rightItems = FXCollections.observableArrayList();
 
-  /**
-   * Create a status bar.
-   */
+  /** Create a status bar. */
   public StatusBar() {
     getStyleClass().add("status-bar");
     setFocusTraversable(false);
@@ -59,8 +57,8 @@ public class StatusBar extends Control {
 
   /**
    * The current progress between 0.0 and 1.0.
-   * <p>
-   * A progress of 0.0 hide the progress indicator.
+   *
+   * <p>A progress of 0.0 hide the progress indicator.
    *
    * @return the progress
    */
@@ -108,5 +106,4 @@ public class StatusBar extends Control {
   protected Skin<?> createDefaultSkin() {
     return new StatusBarSkin(this);
   }
-
 }

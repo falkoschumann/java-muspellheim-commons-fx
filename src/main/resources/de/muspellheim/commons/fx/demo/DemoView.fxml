@@ -24,6 +24,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ToggleButton?>
+<?import de.muspellheim.commons.fx.control.AutocompleteTextField?>
 <VBox xmlns="http://javafx.com/javafx/1.8.0_171" xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="de.muspellheim.commons.fx.demo.DemoViewController"
   stylesheets="@../style.css"
@@ -107,5 +108,12 @@
         </rightItems>
       </StatusBar>
     </VBox>
+  </TitledPane>
+  <TitledPane text="Auto Complete Text">
+    <HBox spacing="10" alignment="CENTER_LEFT">
+      <Label text="Text Field" />
+      <AutocompleteTextField fx:id="autoCompleteTextField" maxSuggestions="5" />
+      <Label text="Try numbers ..."/>
+    </HBox>
   </TitledPane>
 </VBox>

@@ -8,6 +8,7 @@ package de.muspellheim.commons.fx.demo;
 import de.muspellheim.commons.fx.chart.DataTooltipBuilder;
 import de.muspellheim.commons.fx.chart.ScalableAxis;
 import de.muspellheim.commons.fx.chart.SimpleParetoChart;
+import de.muspellheim.commons.fx.control.AutocompleteTextField;
 import de.muspellheim.commons.fx.control.DateIntervalPicker;
 import de.muspellheim.commons.fx.control.StatusBar;
 import de.muspellheim.commons.fx.dialog.AboutDialog;
@@ -21,8 +22,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
 import javafx.collections.FXCollections;
@@ -58,6 +62,8 @@ public class DemoViewController {
   @FXML private ToggleButton progressToggle;
   @FXML private StatusBar statusBar;
 
+  @FXML private AutocompleteTextField<Integer> autoCompleteTextField;
+
   @FXML
   void initialize() {
     //
@@ -91,6 +97,13 @@ public class DemoViewController {
         .addListener((observable, oldValue, newValue) -> validator.accept(newValue));
     validator.accept(validatedText.textProperty().get());
 
+    List<Integer> suggestions = Arrays.asList(1, 2, 3, 11, 12, 13, 21, 22, 23, 31, 32, 33);
+    autoCompleteTextField.setSuggestionProvider(
+        request ->
+            suggestions.stream()
+                .filter(s -> !request.isEmpty() && s.toString().contains(request))
+                .collect(Collectors.toList()));
+
     //
     // Bind
     //
@@ -104,13 +117,16 @@ public class DemoViewController {
     applyChartData2();
     applyParetoChartData();
 
-    progressToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue) {
-        statusBar.setProgress(-1);
-      } else {
-        statusBar.setProgress(0);
-      }
-    });
+    progressToggle
+        .selectedProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue) {
+                statusBar.setProgress(-1);
+              } else {
+                statusBar.setProgress(0);
+              }
+            });
   }
 
   public final ObservableList<DateTimes> getDateTimes() {
