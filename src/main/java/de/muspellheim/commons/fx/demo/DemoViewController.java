@@ -9,6 +9,7 @@ import de.muspellheim.commons.fx.chart.DataTooltipBuilder;
 import de.muspellheim.commons.fx.chart.ScalableAxis;
 import de.muspellheim.commons.fx.chart.SimpleParetoChart;
 import de.muspellheim.commons.fx.control.DateIntervalPicker;
+import de.muspellheim.commons.fx.control.StatusBar;
 import de.muspellheim.commons.fx.dialog.AboutDialog;
 import de.muspellheim.commons.fx.dialog.ExceptionDialog;
 import de.muspellheim.commons.fx.validation.Hint;
@@ -32,6 +33,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 
 public class DemoViewController {
@@ -53,6 +55,9 @@ public class DemoViewController {
 
   @FXML private SimpleParetoChart paretoChart;
 
+  @FXML private ToggleButton progressToggle;
+  @FXML private StatusBar statusBar;
+
   @FXML
   void initialize() {
     //
@@ -65,6 +70,8 @@ public class DemoViewController {
     ScalableAxis.install(chart2, scalableY2);
     setDateTimes(FXCollections.observableArrayList(new DateTimes(LocalDateTime.now())));
 
+    // TODO Extract validator API
+    // TODO Higher order function to combine validators for a control
     Hint hint = new Hint(validatedText);
     Consumer<String> validator =
         value -> {
@@ -90,11 +97,20 @@ public class DemoViewController {
 
     dateIntervalPickerValue.textProperty().bind(dateIntervalPicker.valueProperty().asString());
 
+    // TODO Higher order function to combine validators for a form
     validButton.disableProperty().bind(hint.textProperty().isNotEmpty());
 
     applyChartData1();
     applyChartData2();
     applyParetoChartData();
+
+    progressToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        statusBar.setProgress(-1);
+      } else {
+        statusBar.setProgress(0);
+      }
+    });
   }
 
   public final ObservableList<DateTimes> getDateTimes() {
