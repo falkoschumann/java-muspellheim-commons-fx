@@ -5,6 +5,7 @@
 
 package de.muspellheim.commons.fx.control;
 
+import de.muspellheim.commons.util.Event;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Side;
@@ -58,6 +59,8 @@ public class AutocompleteTextField<T> extends TextField {
         }
       };
 
+  private Event<T> onSuggestionSelected = new Event<>();
+
   /** Creates a new autocomplete text field */
   public AutocompleteTextField() {
     textProperty().addListener((_1, _2, userText) -> findSuggestions(userText));
@@ -88,8 +91,16 @@ public class AutocompleteTextField<T> extends TextField {
   private CustomMenuItem createMenuItem(T suggestion) {
     Label label = new Label(suggestionConverter.toString(suggestion));
     CustomMenuItem menuItem = new CustomMenuItem(label);
-    menuItem.setOnAction(e -> setText(valueConverter.toString(suggestion)));
+    menuItem.setOnAction(
+        e -> {
+          setText(valueConverter.toString(suggestion));
+          onSuggestionSelected.send(suggestion);
+        });
     return menuItem;
+  }
+
+  public final Event<T> onSuggestionSelected() {
+    return onSuggestionSelected;
   }
 
   @FunctionalInterface

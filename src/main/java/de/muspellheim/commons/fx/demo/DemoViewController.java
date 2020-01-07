@@ -34,6 +34,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -126,6 +128,14 @@ public class DemoViewController {
               } else {
                 statusBar.setProgress(0);
               }
+            });
+
+    autoCompleteTextField
+        .onSuggestionSelected()
+        .addHandler(
+            it -> {
+              Alert dlg = new Alert(AlertType.INFORMATION, "You selected " + it + ".");
+              dlg.showAndWait();
             });
   }
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v5.2.0] - 2020-01-07
+
+### Added
+
+*   Added event when suggestion is selected to `AutocompleteTextField`.
+
 ### Fixed
 
 *   `AutocompleteTextField` floated stdout with messages.
