@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+*   `AutocompleteTextField` floated stdout with messages.
+
 ## [v5.1.0] - 2020-01-06
 
 ### Added

@@ -66,7 +66,6 @@ public class AutocompleteTextField<T> extends TextField {
 
   private void findSuggestions(String userText) {
     List<T> suggestions = suggestionProvider.call(userText);
-    System.out.println("user text: " + userText + " -> suggestions: " + suggestions);
     if (!suggestions.isEmpty()) {
       populateSuggestions(suggestions);
       if (!suggestionsPopup.isShowing()) {
