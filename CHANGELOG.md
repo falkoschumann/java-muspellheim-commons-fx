@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+*   `EnumTableCell` showing enum `name()` instead of `toString()`.
+
 ### Fixed
 
 *   `AutocompleteTextField` thrown `IllegalArgumentException` when suggestion
