@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v5.3.0] - 2020-01-12
+
 ### Added
 
 *   `EnumTableCell` showing enum `name()` instead of `toString()`.
+*   `AutocompleteTextField` look up for suggestions in background thread.
 
 ### Fixed
 
@@ -217,7 +220,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 *   Stage controller based on view controller.
 
 
-[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.10.0...HEAD
+[Unreleased]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v5.3.0...HEAD
+[v5.3.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v5.2.0...v5.3.0
+[v5.2.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v5.1.0...v5.2.0
+[v5.1.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v5.0.0...v5.1.0
+[v5.0.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.11.0...v5.0.0
+[v4.11.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.10.0...v4.11.0
 [v4.10.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.9.0...v4.10.0
 [v4.9.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.8.0...v4.9.0
 [v4.8.0]: https://github.com/falkoschumann/java-muspellheim-commons-fx/compare/v4.7.0...v4.8.0

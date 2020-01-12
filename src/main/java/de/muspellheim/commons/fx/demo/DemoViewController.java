@@ -34,8 +34,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -64,7 +62,8 @@ public class DemoViewController {
   @FXML private ToggleButton progressToggle;
   @FXML private StatusBar statusBar;
 
-  @FXML private AutocompleteTextField<Integer> autoCompleteTextField;
+  @FXML private AutocompleteTextField<Integer> autocompleteTextField;
+  @FXML private Label autocompleteLabel;
 
   @FXML
   void initialize() {
@@ -100,7 +99,7 @@ public class DemoViewController {
     validator.accept(validatedText.textProperty().get());
 
     List<Integer> suggestions = Arrays.asList(1, 2, 3, 11, 12, 13, 21, 22, 23, 31, 32, 33);
-    autoCompleteTextField.setSuggestionProvider(
+    autocompleteTextField.setSuggestionProvider(
         request ->
             suggestions.stream()
                 .filter(s -> !request.isEmpty() && s.toString().contains(request))
@@ -130,13 +129,9 @@ public class DemoViewController {
               }
             });
 
-    autoCompleteTextField
+    autocompleteTextField
         .onSuggestionSelected()
-        .addHandler(
-            it -> {
-              Alert dlg = new Alert(AlertType.INFORMATION, "You selected " + it + ".");
-              dlg.showAndWait();
-            });
+        .addHandler(it -> autocompleteLabel.setText("You selected " + it + "."));
   }
 
   public final ObservableList<DateTimes> getDateTimes() {

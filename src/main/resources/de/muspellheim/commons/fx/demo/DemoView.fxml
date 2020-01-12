@@ -112,8 +112,8 @@
   <TitledPane text="Auto Complete Text">
     <HBox spacing="10" alignment="CENTER_LEFT">
       <Label text="Text Field" />
-      <AutocompleteTextField fx:id="autoCompleteTextField" maxSuggestions="5" />
-      <Label text="Try numbers ..."/>
+      <AutocompleteTextField fx:id="autocompleteTextField" maxSuggestions="5" />
+      <Label fx:id="autocompleteLabel" text="Try numbers ..."/>
     </HBox>
   </TitledPane>
 </VBox>

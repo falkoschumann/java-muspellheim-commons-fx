@@ -5,6 +5,7 @@
 
 package de.muspellheim.commons.fx.control;
 
+import de.muspellheim.commons.fx.concurrent.DispatchQueue;
 import de.muspellheim.commons.util.Event;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,6 @@ import lombok.Setter;
 public class AutocompleteTextField<T> extends TextField {
 
   // TODO Delay suggestion search and cancel past requests
-  // TODO Call suggestion provider in background thread
 
   private final ContextMenu suggestionsPopup = new ContextMenu();
 
@@ -60,24 +60,36 @@ public class AutocompleteTextField<T> extends TextField {
         }
       };
 
+  private boolean internalUpdate = false;
+
   private Event<T> onSuggestionSelected = new Event<>();
 
   /** Creates a new autocomplete text field */
   public AutocompleteTextField() {
-    textProperty().addListener((_1, _2, userText) -> findSuggestions(userText));
-    focusedProperty().addListener((_1, _2, newValue) -> suggestionsPopup.hide());
+    textProperty().addListener((observable, oldValue, newValue) -> findSuggestions(newValue));
+    focusedProperty().addListener((observable, oldValue, newValue) -> suggestionsPopup.hide());
   }
 
   private void findSuggestions(String userText) {
-    List<T> suggestions = suggestionProvider.call(userText);
-    if (!suggestions.isEmpty()) {
-      populateSuggestions(suggestions);
-      if (this.getScene() != null && !suggestionsPopup.isShowing()) {
-        suggestionsPopup.show(this, Side.BOTTOM, 0, 0);
-      }
-    } else {
-      suggestionsPopup.hide();
+    if (internalUpdate) {
+      return;
     }
+
+    DispatchQueue.background(
+        () -> {
+          List<T> suggestions = suggestionProvider.call(userText);
+          DispatchQueue.application(
+              () -> {
+                if (!suggestions.isEmpty()) {
+                  populateSuggestions(suggestions);
+                  if (this.getScene() != null && !suggestionsPopup.isShowing()) {
+                    suggestionsPopup.show(this, Side.BOTTOM, 0, 0);
+                  }
+                } else {
+                  suggestionsPopup.hide();
+                }
+              });
+        });
   }
 
   private void populateSuggestions(List<T> suggestions) {
@@ -94,7 +106,10 @@ public class AutocompleteTextField<T> extends TextField {
     CustomMenuItem menuItem = new CustomMenuItem(label);
     menuItem.setOnAction(
         e -> {
+          suggestionsPopup.hide();
+          internalUpdate = true;
           setText(valueConverter.toString(suggestion));
+          internalUpdate = false;
           onSuggestionSelected.send(suggestion);
         });
     return menuItem;

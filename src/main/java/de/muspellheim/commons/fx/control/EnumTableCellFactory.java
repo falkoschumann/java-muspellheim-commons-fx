@@ -30,6 +30,6 @@ public class EnumTableCellFactory<S>
 
   @Override
   public TableCell<S, Enum<?>> call(TableColumn<S, Enum<?>> param) {
-    return new EnumTableCell();
+    return new EnumTableCell<>();
   }
 }
