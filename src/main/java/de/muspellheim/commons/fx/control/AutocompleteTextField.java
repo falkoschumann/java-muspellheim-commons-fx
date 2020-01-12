@@ -22,6 +22,7 @@ import lombok.Setter;
 public class AutocompleteTextField<T> extends TextField {
 
   // TODO Delay suggestion search and cancel past requests
+  // TODO Call suggestion provider in background thread
 
   private final ContextMenu suggestionsPopup = new ContextMenu();
 
@@ -71,7 +72,7 @@ public class AutocompleteTextField<T> extends TextField {
     List<T> suggestions = suggestionProvider.call(userText);
     if (!suggestions.isEmpty()) {
       populateSuggestions(suggestions);
-      if (!suggestionsPopup.isShowing()) {
+      if (this.getScene() != null && !suggestionsPopup.isShowing()) {
         suggestionsPopup.show(this, Side.BOTTOM, 0, 0);
       }
     } else {

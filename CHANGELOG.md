@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+*   `AutocompleteTextField` thrown `IllegalArgumentException` when suggestion
+    popup will open, if `AutocompleteTextField` is not in a scene. 
+
 ## [v5.2.0] - 2020-01-07
 
 ### Added
