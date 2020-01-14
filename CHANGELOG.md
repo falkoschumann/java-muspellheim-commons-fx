@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v5.3.1] - 2020-01-14
+
+### Fixed
+
+*   `AutocompleteTextField` had running condition when open suggestion popup. 
+
 ## [v5.3.0] - 2020-01-12
 
 ### Added

@@ -71,7 +71,7 @@ public class AutocompleteTextField<T> extends TextField {
   }
 
   private void findSuggestions(String userText) {
-    if (internalUpdate) {
+    if (this.getScene() == null || internalUpdate) {
       return;
     }
 
@@ -82,7 +82,7 @@ public class AutocompleteTextField<T> extends TextField {
               () -> {
                 if (!suggestions.isEmpty()) {
                   populateSuggestions(suggestions);
-                  if (this.getScene() != null && !suggestionsPopup.isShowing()) {
+                  if (!suggestionsPopup.isShowing()) {
                     suggestionsPopup.show(this, Side.BOTTOM, 0, 0);
                   }
                 } else {
